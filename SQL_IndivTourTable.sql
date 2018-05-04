@@ -1,0 +1,10 @@
+SELECT 
+transaction_id,
+create_time,
+product_code, 
+tour_name, 
+salesperson_code, 
+wholesaler_code,
+payment_type,
+currency, 
+revenue, 
