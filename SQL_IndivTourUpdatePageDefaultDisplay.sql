@@ -45,30 +45,34 @@ if either is null, adjust the format
 */
 
 /*get the order details*/
-SELECT * FROM
-(SELECT 
-ito.transaction_id,
-ito.product_code, 
-ito.tour_name, 
-ito.salesperson_code, 
-ito.wholesaler_code,
-ito.indiv_number, 
-ito.source_name, 
-ito.note, 
-ito.depart_date, 
-ito.arrival_date, 
-DATEDIFF(ito.arrival_date - ito.depart_date) AS 'duration', 
-ito.currency, 
-ito.payment_type, 
-ito.cost, 
+SELECT 
+t.transaction_id,
+it.product_code, 
+it.tour_name, 
+s.salesperson_code, 
+w.wholesaler_code,
+it.indiv_number, 
+sn.source_name, 
+t.note, 
+it.depart_date, 
+it.arrival_date, 
+DATEDIFF(it.arrival_date,it.depart_date) AS 'duration', 
+t.currency, 
+t.payment_type, 
+t.expense, 
 t.received, 
-
 t.cc_id, 
-ito.coupon
+t.coupon
 FROM 
-IndividualTourOrder ito 
-JOIN Transactions t
-ON ito.transaction_id = t.transaction_id) indiv_tour_default_display
+Transactions t
+RIGHT JOIN IndividualTour it
+ON t.indiv_tour_id =  it.indiv_tour_id
+JOIN Salesperson s 
+ON t.salesperson_id = s.salesperson_id
+JOIN Wholesaler w 
+ON it.wholesaler_id = w.wholesaler_id
+JOIN CustomerSource sn 
+ON t.source_id = sn.source_id
 WHERE transaction_id = '201'
 
 
