@@ -87,7 +87,6 @@ INSERT INTO Transactions(
     coupon, 
     expense, /* ‘价格’改成’总花费‘ */
     received, /*收到现金*/
-    received2, /*返现*/
     payment_type, 
     total_profit, 
     note, 
@@ -103,7 +102,6 @@ VALUES(
     v_discount, 
     4000,
     6000, 
-    100, 
     'cash', 
     received2+received-expense-v_discount,
     NULL,
