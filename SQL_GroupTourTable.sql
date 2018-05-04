@@ -2,7 +2,6 @@ SELECT
 transaction_id, 
 create_time, 
 group_code, 
-salesperson_code, 
 schedule,
 payment_type, 
 currency, 
@@ -18,5 +17,6 @@ AND create_time < current_timestamp
 AND group_code LIKE '%' 
 AND clear_status = 'N' 
 AND lock_status = 'N'
+AND salesperson_code = 'fzjrlct'
 LIMIT 15
 
