@@ -121,13 +121,12 @@ source_id =
 note = 'haha',
 expense = 5000, /*'价格'*/
 received = 10000, /*'价格'*/
-received2 = 1000, /*'价格'*/
 
 
     
 /* 关于coupon的逻辑和独立团是一样的，需要注意的是计算total profit的时候多了一个received2
 ,
-total_profit = received+received2-expense
+total_profit = received-expense
 /*
 
 +-----------------------------------------------------+
@@ -139,7 +138,7 @@ cc_id =
   (SELECT cc_id FROM CouponCode WHERE code = 'IKrp3KiGV06yuH1GsQ62'),
 coupon = 
   (SELECT discount FROM CouponCode WHERE code = 'IKrp3KiGV06yuH1GsQ62')
-total_profit = received+received2-expense-coupon
+total_profit = received-expense-coupon
 ------------------------------------------------------------------------------
 我记得这里你有个php是专门判断是否expired的，你自行应用一下
 ------------------------------------------------------------------------------
@@ -149,7 +148,7 @@ total_profit = received+received2-expense-coupon
 -----------------------------------------------------------------------------
 ,
 coupon = 5
-total_profit = received+received2-expense-coupon
+total_profit = received-expense-coupon
 
 
 */
