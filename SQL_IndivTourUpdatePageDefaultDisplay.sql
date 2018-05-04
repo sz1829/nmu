@@ -62,7 +62,7 @@ ito.currency,
 ito.payment_type, 
 ito.cost, 
 t.received, 
-t.received2,
+
 t.cc_id, 
 ito.coupon
 FROM 
