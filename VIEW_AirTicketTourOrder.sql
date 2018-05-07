@@ -6,7 +6,7 @@ date_format(t.create_time, '%Y-%m-%d') as 'create_time',
 date_format(t.settle_time, '%Y-%m-%d') as 'settle_time', 
 s.salesperson_code, 
 concat(c.fname, ' ', c.lname) as 'name',
-/* concat(c.lname, c.fname) as 'name' */
+/*if Chinese, concat(c.lname, c.fname) as 'name' */
 t.currency, 
 t.payment_type, 
 t.total_profit, 
