@@ -12,7 +12,7 @@ t.create_time,
 s.salesperson_code, 
 it.indiv_number,
 concat(w.name, '(', w.wholesaler_code, ')') as 'wholesaler', 
-concat(t.currency, ' ', t.received+t.received2, ' | ', t.expense, ' | ', t.total_profit) as 'transaction_details', 
+concat(t.currency, ' ', t.received, ' | ', t.expense, ' | ', t.total_profit) as 'transaction_details', 
 t.coupon
 FROM Transactions t 
 RIGHT JOIN IndividualTour it 
