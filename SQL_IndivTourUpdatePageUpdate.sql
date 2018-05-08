@@ -116,6 +116,8 @@ WHERE indiv_tour_id = v_indiv_tour_id;
 
 UPDATE Transactions
 SET 
+currency = 'USD',
+payment_type = 'creditcard',
 source_id = 
   (SELECT source_id FROM CustomerSource WHERE source_name = 'Csin'),
 note = 'haha',
