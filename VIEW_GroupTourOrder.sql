@@ -3,7 +3,6 @@ CREATE VIEW GroupTourOrder AS
 SELECT 
 t.transaction_id, 
 date_format(t.create_time, '%Y-%m-%d') as 'create_time', 
-date_format(t.settle_time, '%Y-%m-%d') as 'settle_time', 
 g.group_code, 
 s.salesperson_code, 
 (g.leader_number+g.tourist_number) as 'total_number',

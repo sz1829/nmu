@@ -3,7 +3,6 @@ CREATE VIEW IndividualTourOrder AS
 SELECT
 t.transaction_id,
 date_format(t.create_time, '%Y-%m-%d') AS 'create_time', 
-date_format(t.settle_time, '%Y-%m-%d') AS 'settle_time',
 it.product_code, 
 it.tour_name, 
 s.salesperson_code, 

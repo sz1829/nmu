@@ -3,7 +3,6 @@ CREATE VIEW AirTicketTourOrder AS
 SELECT 
 t.transaction_id, 
 date_format(t.create_time, '%Y-%m-%d') as 'create_time', 
-date_format(t.settle_time, '%Y-%m-%d') as 'settle_time', 
 s.salesperson_code, 
 concat(c.fname, ' ', c.lname) as 'name',
 /*if Chinese, concat(c.lname, c.fname) as 'name' */
