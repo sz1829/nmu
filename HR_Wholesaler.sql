@@ -66,6 +66,7 @@ INSERT INTO Wholesaler
     'keke',
     'KEKE',
     'keke@keke.com',
+    12344566,
     'JUUUU',
     'Universe',
     '456',
