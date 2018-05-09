@@ -25,7 +25,7 @@ JOIN Transactions t
 ON ato.transaction_id = t.transaction_id
 JOIN AirTicketTour att 
 ON t.airticket_tour_id = att.airticket_tour_id
-WHERE ato.transaction_id = 490
+WHERE ato.transaction_id = v_transaction_id
 
 /*
 customer
@@ -44,7 +44,7 @@ zipcode
 FROM Customer 
 WHERE customer_id = 
   (SELECT customer_id FROM AirTicketTour WHERE airticket_tour_id = 
-    (SELECT airticket_tour_id FROM Transactions WHERE transaction_id = 490)  
+    (SELECT airticket_tour_id FROM Transactions WHERE transaction_id = v_transaction_id)  
   );
 
 

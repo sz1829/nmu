@@ -101,4 +101,4 @@ total_profit = received+received2-expense-coupon
 
 */
 
-WHERE transaction_id = 490;
+WHERE transaction_id = v_transaction_id;
