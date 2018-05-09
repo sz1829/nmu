@@ -1,0 +1,27 @@
+INSERT INTO department
+VALUES
+(
+'1',
+'Xian',
+'ZvwtupbvsZvwtupbvsZvwtupbvs'
+),
+(
+'2',
+'Xian',
+'CblpCblp'
+),
+(
+'3',
+'Xian',
+'CrvjCrvjCrvjCrvjCrvj'
+),
+(
+'4',
+'Xian',
+'LagmLagmLagmLagm'
+),
+(
+'5',
+'Xian',
+'HexvencHexvencHexvencHexvencHexvenc'
+)
