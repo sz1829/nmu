@@ -91,6 +91,8 @@ SELECT indiv_tour_id FROM Transactions WHERE transaction_id = 289;
 
 UPDATE TourDetails
 SET 
+salesperson_id = 
+  (SELECT salesperson_id FROM Salesperson WHERE salesperson_code = 'ackui'),
 join_date = '2018-05-10',
 leave_date = '2018-05-11',
 join_location = 'ny',

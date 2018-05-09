@@ -62,6 +62,8 @@ WHERE airticket_tour_id = v_airticket_tour_id;
 
 UPDATE Transactions
 SET 
+salesperson_id = 
+  (SELECT salesperson_id FROM Salesperson WHERE salesperson_code = 'ackui'),
 currency = 'USD',
 payment_type = 'creditcard',
 source_id = 
