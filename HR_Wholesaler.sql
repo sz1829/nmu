@@ -55,6 +55,7 @@ INSERT INTO Wholesaler
     wholesaler_code,
     name,
     email,
+    phone,
     contact_person,
     region,
     contact_person_phone,
