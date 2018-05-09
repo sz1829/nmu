@@ -73,3 +73,10 @@ INSERT INTO Wholesaler
     'Human Clearing',
     'World belongs to Three Body'
 )
+
+/*
+delete
+*/
+
+DELETE FROM Wholesaler
+WHERE wholesaler_id = v_wholesaler_id;
