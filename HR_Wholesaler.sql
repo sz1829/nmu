@@ -16,6 +16,30 @@ ORDER BY wholesaler_id DESC
 LIMIT 20;
 
 /*
+filter
+*/
+
+SELECT 
+wholesaler_id, 
+wholesaler_code, 
+name,
+email, 
+contact_person,
+region,
+business_type,
+description 
+FROM wholesaler
+WHERE wholesaler_code LIKE '%'
+AND name LIKE '%'
+AND contact_person LIKE '%'
+AND region LIKE '%'
+AND business_type LIKE '%'
+ORDER BY wholesaler_id DESC
+LIMIT 20;
+
+
+
+/*
 click one 
 */
 SELECT 
