@@ -43,8 +43,10 @@ FROM Salesperson s
 JOIN Department d 
 ON s.department_id = d.department_id
 WHERE salesperson_code LIKE '%'
-AND (lname LIKE '%%%' /*if input, use '%'+$fromInput+'%' */
-OR fname LIKE '%%%') /* if input, use '%'+$fromInput+'%' */
+AND concat(lname, fname) LIKE '%'
+/*if not chinese, use
+concat(fname, ' ', lname) LIKE '%' 
+*/
 AND s.department_id LIKE  
    (SELECT department_id FROM Department WHERE department_name = 'Xian')
 ORDER BY salesperson_id DESC

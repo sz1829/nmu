@@ -37,7 +37,10 @@ email,
 concat(other_contact_type, ': ', other_contact_number) as 'other_contact',
 descriptions
 FROM TouristGuide
-WHERE (lname LIKE '%%%' OR fname LIKE '%%%')
+WHERE concat(lname, fname) LIKE '%'
+/*if not chinese, use
+concat(fname, ' ', lname) LIKE '%' 
+*/
 AND gender LIKE '%'
 ORDER BY guide_id DESC
 LIMIT 20;
