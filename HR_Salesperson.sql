@@ -45,7 +45,7 @@ ON s.department_id = d.department_id
 WHERE salesperson_code LIKE '%'
 AND (lname LIKE '%%%' /*if input, use '%'+$fromInput+'%' */
 OR fname LIKE '%%%') /* if input, use '%'+$fromInput+'%' */
-AND s.department_id = 
+AND s.department_id LIKE  
    (SELECT department_id FROM Department WHERE department_name = 'Xian')
 ORDER BY salesperson_id DESC
 LIMIT 20;

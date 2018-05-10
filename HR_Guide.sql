@@ -21,6 +21,30 @@ ORDER BY guide_id DESC
 LIMIT 20;
 
 /*
+filter
+*/
+SELECT 
+guide_id, 
+concat(lname, fname) as name, 
+/*if either of lname and fname is not Chinese, use 
+concat(lname, ' ', fname) as name, 
+*/
+gender, 
+/* convert M, F, UNKNOWN to Chinese*/
+age, 
+phone,
+email, 
+concat(other_contact_type, ': ', other_contact_number) as 'other_contact',
+descriptions
+FROM TouristGuide
+WHERE (lname LIKE '%%%' OR fname LIKE '%%%')
+AND gender LIKE '%'
+ORDER BY guide_id DESC
+LIMIT 20;
+
+
+
+/*
 click one
 */
 
