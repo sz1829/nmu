@@ -118,4 +118,4 @@ INSERT INTO Salesperson
 delete
 */
 
-UPDATE Salesperson SET activa_status = 'N' WHERE salesperson_id = v_salesperson_id;
+UPDATE Salesperson SET active_status = 'N' WHERE salesperson_id = v_salesperson_id;
