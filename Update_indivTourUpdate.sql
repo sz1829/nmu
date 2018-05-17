@@ -79,6 +79,28 @@ SELECT indiv_tour_id FROM Transactions WHERE transaction_id = 289;
   --click on '编辑'--
     --编辑窗口的信息来自 之前 已储存的数据--
     --数据修改后点击‘确认修改’， 更新后台数据--
+
+    UPDATE TourDetails SET 
+    join_date = '2018-05-17',
+    leave_date = '2018-05-18',
+    join_location = 'NY',
+    leave_location = 'LA', 
+    note = '其他注意事项'
+    WHERE customer_id = v_customer_id 
+    AND indiv_tour_id = v_indiv_tour_id;
+
+    UPDATE Customer SET 
+    fname = 'hha',
+    lname = 'heihei',
+    phone = 'jojo',
+    other_contact_type = 'wechat',
+    other_contact_number = '12341432', 
+    birth_date = '1991-01-01',
+    gender = 'M',
+    email = 'miemie',
+    zipcode = '123324'
+    WHERE customer_id = v_customer_id;
+
   
 
   --click on '删除'--
