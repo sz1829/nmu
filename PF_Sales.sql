@@ -1,22 +1,29 @@
 /*
-default display 
-same as pf_summary.sql
+默认显示
+每30天
 */
 
-/*
-add one salesperson
-same as pf_summar.sql
-*
+/* n=0, -30, -60, -90, ... */
 
-/*
-add time period
-manipulate the date in js
-*/
+SELECT DATE_ADD(CURRENT_DATE, interval n day) as 'daily';
 
-/*
-add two salesperson
-*/
+SELECT 
+sum(profit)
+FROM GroupTourOrder
+WHERE create_time = DATE_ADD(CURRENT_DATE, interval n day) /* n */
+/*filter*/
+AND salesperson_code LIKE 'aeodhnzx';
 
+SELECT 
+sum(total_profit)
+FROM IndividualTourOrder
+WHERE create_time = DATE_ADD(CURRENT_DATE, interval n day) /* n */
+/*filter*/
+AND salesperson_code LIKE '%';
 
-test 
- 
+SELECT 
+sum(total_profit)
+FROM AirticketTourOrder
+WHERE create_time = DATE_ADD(CURRENT_DATE, interval n day) /* n */
+/*filter*/
+AND salesperson_code LIKE '%';

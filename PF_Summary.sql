@@ -13,14 +13,14 @@ SELECT DATE_ADD(CURRENT_DATE, interval n day) as 'daily';
 SELECT 
 sum(profit)
 FROM GroupTourOrder
-WHERE create_time = DATE_ADD(CURRENT_DATE, interval -2 day) /* n */
+WHERE create_time = DATE_ADD(CURRENT_DATE, interval n day) /* n */
 /*filter*/
 AND salesperson_code LIKE 'aeodhnzx';
 
 SELECT 
 sum(total_profit)
 FROM IndividualTourOrder
-WHERE create_time = DATE_ADD(CURRENT_DATE, interval -2 day) /* n */
+WHERE create_time = DATE_ADD(CURRENT_DATE, interval n day) /* n */
 /*filter*/
 AND salesperson_code LIKE '%';
 
