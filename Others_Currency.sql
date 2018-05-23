@@ -6,7 +6,17 @@ WHERE TABLE_SCHEMA='nmu'
 AND TABLE_NAME='Transactions'
 AND COLUMN_NAME='currency';
 
-/*add display*/
+/*add a new currency like EUR
+*/
 
-ALTER 
+ALTER TABLE 
+Transactions
+MODIFY currency 
+ENUM('USD', 'RMB', 'EUR');
 
+/*delete a type of currency like EUR*/
+
+ALTER TABLE
+Transactions
+MODIFY currency
+ENUM('USD', 'RMB');
