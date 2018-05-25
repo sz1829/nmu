@@ -43,15 +43,15 @@ SELECT (
     AND  create_time < DATE_ADD(CURRENT_DATE, interval 0 day)
     /*filter*/
     AND salesperson_code LIKE 'aeodhnzx'
-    AND currency = 'RMB'
+    AND currency = 'USD'
 ) + (
     SELECT sum(profit) from GroupTourOrder
     WHERE create_time >= DATE_ADD(CURRENT_DATE, interval -30 day) /* n */
     AND  create_time < DATE_ADD(CURRENT_DATE, interval 0 day)
     /*filter*/
     AND salesperson_code LIKE 'aeodhnzx'
-    AND currency = 'USD' 
-) * (
+    AND currency = 'RMB' 
+) / (
     SELECT value FROM OtherInfo 
     WHERE name = 'default_currency'
 )
@@ -62,15 +62,15 @@ SELECT (
     AND  create_time < DATE_ADD(CURRENT_DATE, interval 0 day)
     /*filter*/
     AND salesperson_code LIKE 'aeodhnzx'
-    AND currency = 'RMB' 
+    AND currency = 'USD' 
 ) + (
     SELECT sum(total_profit) from IndividualTourOrder
     WHERE create_time >= DATE_ADD(CURRENT_DATE, interval -30 day) /* n */
     AND  create_time < DATE_ADD(CURRENT_DATE, interval 0 day)
     /*filter*/
     AND salesperson_code LIKE 'aeodhnzx'
-    AND currency = 'USD' 
-) * (
+    AND currency = 'RMB' 
+) / (
     SELECT value FROM OtherInfo 
     WHERE name = 'default_currency'
 )
@@ -81,15 +81,15 @@ SELECT (
     AND  create_time < DATE_ADD(CURRENT_DATE, interval 0 day)
     /*filter*/
     AND salesperson_code LIKE 'aeodhnzx'
-    AND currency = 'RMB' 
+    AND currency = 'USD' 
 ) + (
     SELECT sum(total_profit) from AirticketTourOrder
     WHERE create_time >= DATE_ADD(CURRENT_DATE, interval -30 day) /* n */
     AND  create_time < DATE_ADD(CURRENT_DATE, interval 0 day)
     /*filter*/
     AND salesperson_code LIKE 'aeodhnzx'
-    AND currency = 'USD' 
-) * (
+    AND currency = 'RMB' 
+) / (
     SELECT value FROM OtherInfo 
     WHERE name = 'default_currency'
 )
