@@ -1,4 +1,3 @@
-    
 CREATE PROCEDURE insertOneRow(
 IN 
     fromDate DATETIME,
@@ -66,7 +65,6 @@ IN
     AND create_time >= fromDate
     AND salesperson_code LIKE s_code
     AND currency = 'RMB'), 0)/d_currency, 2) INTO @airSum;
-
     SET @insertIntoTable = concat('INSERT INTO ', table_name, ' VALUES(@time_period, @groupSum, @indivSum, @airSum,  @groupSum+@indivSum+@airSum);');
     PREPARE forExecute FROM @insertIntoTable;
     EXECUTE forExecute;
