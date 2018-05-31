@@ -20,14 +20,14 @@ BEGIN
             CALL insertOneRow(from_date, '%Y-%m-%d', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'monthly');
             SELECT * FROM forCalculate;
         ELSE
-            CALL insertOneRow(concat(DATE_FORMAT(to_date, '%Y-%m'), '-00'), '%Y-%m', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'monthly');
+            CALL insertOneRow(concat(DATE_FORMAT(to_date, '%Y-%m'), '-01'), '%Y-%m', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'monthly');
             SET @cursor_day = to_date - interval 1 month;
             WHILE from_date < DATE_FORMAT(@cursor_day, '%Y-%m') DO
-                CALL insertOneRow(concat(DATE_FORMAT(@cursor_day, '%Y-%m'), '-00'), 'hello', concat(DATE_FORMAT(@cursor_day + interval 1 month, '%Y-%m'), '-00'), 'world', s_code, @default_currency, 'forCalculate', 'Y', 'monthly');
+                CALL insertOneRow(concat(DATE_FORMAT(@cursor_day, '%Y-%m'), '-01'), 'hello', concat(DATE_FORMAT(@cursor_day + interval 1 month, '%Y-%m'), '-01'), 'world', s_code, @default_currency, 'forCalculate', 'Y', 'monthly');
                 SET @cursor_day = @cursor_day - interval 1 month;
             END WHILE;
             SET @last_month = DATE_FORMAT(@cursor_day + interval 1 month, '%Y-%m');
-            CALL insertOneRow(from_date, '%Y-%m-%d', concat(@last_month, '-00'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'N', 'monthly');
+            CALL insertOneRow(from_date, '%Y-%m-%d', concat(@last_month, '-01'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'N', 'monthly');
             SELECT * FROM forCalculate;
         END IF;
     ELSEIF frequency = 'daily' THEN 
@@ -41,39 +41,39 @@ BEGIN
         IF from_date > DATE_FORMAT(to_date - interval 3 month, '%Y-%m') THEN
             CALL insertOneRow(from_date, '%Y-%m-%d', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'seasonly');
         ELSE
-            CALL insertOneRow(concat(DATE_FORMAT(to_date - interval 2 month, '%Y-%m'), '-00'), '%Y-%m', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'seasonly');
+            CALL insertOneRow(concat(DATE_FORMAT(to_date - interval 2 month, '%Y-%m'), '-01'), '%Y-%m', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'seasonly');
             SET @cursor_day = to_date - interval 2 month;
             WHILE from_date < DATE_FORMAT(@cursor_day - interval 3 month, '%Y-%m') DO
-                CALL insertOneRow(concat(DATE_FORMAT(@cursor_day - interval 3 month, '%Y-%m'), '-00'), '%Y-%m', concat(DATE_FORMAT(@cursor_day, '%Y-%m'), '-00'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'Y', 'seasonly');
+                CALL insertOneRow(concat(DATE_FORMAT(@cursor_day - interval 3 month, '%Y-%m'), '-01'), '%Y-%m', concat(DATE_FORMAT(@cursor_day, '%Y-%m'), '-01'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'Y', 'seasonly');
                 SET @cursor_day = @cursor_day - interval 3 month;
             END WHILE;
-            CALL insertOneRow(from_date, '%Y-%m-%d', concat(DATE_FORMAT(@cursor_day + interval 3 month, '%Y-%m'), '-00'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'Y', 'seasonly');
+            CALL insertOneRow(from_date, '%Y-%m-%d', concat(DATE_FORMAT(@cursor_day + interval 3 month, '%Y-%m'), '-01'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'Y', 'seasonly');
         END IF;
         SELECT * FROM forCalculate;
     ELSEIF frequency = 'hyearly' THEN
         IF from_date > DATE_FORMAT(to_date-interval 6 month, '%Y-%m') THEN
             CALL insertOneRow(from_date, '%Y-%m-%d', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'hyearly');
         ELSE
-            CALL insertOneRow(concat(DATE_FORMAT(to_date - interval 5 month, '%Y-%m'), '-00'), '%Y-%m', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'hyearly');
+            CALL insertOneRow(concat(DATE_FORMAT(to_date - interval 5 month, '%Y-%m'), '-01'), '%Y-%m', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'hyearly');
             SET @cursor_day = to_date - interval 5 month;
             WHILE from_date < DATE_FORMAT(@cursor_day - interval 6 month, '%Y-%m') DO
-                CALL insertOneRow(concat(DATE_FORMAT(@cursor_day - interval 6 month, '%Y-%m'), '-00'), '%Y-%m', concat(DATE_FORMAT(@cursor_day, '%Y-%m'), '-00'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'Y', 'hyearly');
+                CALL insertOneRow(concat(DATE_FORMAT(@cursor_day - interval 6 month, '%Y-%m'), '-01'), '%Y-%m', concat(DATE_FORMAT(@cursor_day, '%Y-%m'), '-01'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'Y', 'hyearly');
                 SET @cursor_day = @cursor_day - interval 6 month;
             END WHILE;
-            CALL insertOneRow(from_date, '%Y-%m-%d', concat(DATE_FORMAT(@cursor_day, '%Y-%m'), '-00'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'Y', 'hyearly');
+            CALL insertOneRow(from_date, '%Y-%m-%d', concat(DATE_FORMAT(@cursor_day, '%Y-%m'), '-01'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'Y', 'hyearly');
         END IF;
         SELECT * FROM forCalculate;
     ELSEIF frequency = 'yearly' THEN
         IF from_date >= DATE_FORMAT(to_date-interval 12 month, '%Y-%m') THEN
             CALL insertOneRow(from_date, '%Y-%m-%d', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'yearly');
         ELSE 
-            CALL insertOneRow(concat(DATE_FORMAT(to_date, '%Y'), '-01-00'), '%Y', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'yearly');
+            CALL insertOneRow(concat(DATE_FORMAT(to_date, '%Y'), '-01-01'), '%Y', to_date, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'yearly');
             SET @cursor_day = to_date - interval 12 month;
             WHILE from_date < DATE_FORMAT(@cursor_day, '%Y') DO
-                CALL insertOneRow(concat(DATE_FORMAT(@cursor_day, '%Y'), '-01-00'), 'hello', concat(DATE_FORMAT(@cursor_day+interval 12 month, '%Y'), '-01-00'), 'world', s_code, @default_currency, 'forCalculate', 'Y', 'yearly');
+                CALL insertOneRow(concat(DATE_FORMAT(@cursor_day, '%Y'), '-01-01'), 'hello', concat(DATE_FORMAT(@cursor_day+interval 12 month, '%Y'), '-01-01'), 'world', s_code, @default_currency, 'forCalculate', 'Y', 'yearly');
                 SET @cursor_day = @cursor_day - interval 12 month;
             END WHILE;
-            CALL insertOneRow(from_date, '%Y-%m-%d', concat(DATE_FORMAT(@cursor_day+interval 12 month, '%Y'), '-01-00'), '%Y', s_code, @default_currency, 'forCalculate', 'N', 'yearly');
+            CALL insertOneRow(from_date, '%Y-%m-%d', concat(DATE_FORMAT(@cursor_day+interval 12 month, '%Y'), '-01-01'), '%Y', s_code, @default_currency, 'forCalculate', 'N', 'yearly');
         END IF;
         SELECT * FROM forCalculate;
     END IF;
