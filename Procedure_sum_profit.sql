@@ -47,7 +47,7 @@ BEGIN
                 CALL insertOneRow(concat(DATE_FORMAT(@cursor_day - interval 3 month, '%Y-%m'), '-01'), '%Y-%m', concat(DATE_FORMAT(@cursor_day, '%Y-%m'), '-01'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'Y', 'seasonly');
                 SET @cursor_day = @cursor_day - interval 3 month;
             END WHILE;
-            CALL insertOneRow(from_date, '%Y-%m-%d', concat(DATE_FORMAT(@cursor_day + interval 3 month, '%Y-%m'), '-01'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'Y', 'seasonly');
+            CALL insertOneRow(from_date, '%Y-%m-%d', concat(DATE_FORMAT(@cursor_day, '%Y-%m'), '-01'), '%Y-%m', s_code, @default_currency, 'forCalculate', 'Y', 'seasonly');
         END IF;
         SELECT * FROM forCalculate;
     ELSEIF frequency = 'hyearly' THEN
