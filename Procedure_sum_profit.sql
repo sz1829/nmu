@@ -9,11 +9,11 @@ BEGIN
     SELECT value FROM OtherInfo WHERE name = 'default_currency' INTO @default_currency;
     DROP TABLE IF EXISTS forCalculate;
     CREATE TEMPORARY TABLE forCalculate (
-        c0 VARCHAR(45),
-        c1 DECIMAL(11,2),
-        c2 DECIMAL(11,2),
-        c3 DECIMAL(11,2),
-        c4 DECIMAL(11,2)
+        time_period VARCHAR(45),
+        groupSum DECIMAL(11,2),
+        indivSum DECIMAL(11,2),
+        airSum DECIMAL(11,2),
+        totalSum DECIMAL(11,2)
     );
     IF frequency = 'monthly' THEN
         IF from_date > DATE_FORMAT(to_date, '%Y-%m') THEN 
