@@ -32,7 +32,7 @@ BEGIN
         END IF;
     ELSEIF frequency = 'daily' THEN 
         SET @cursor_day = to_date;
-        WHILE @cursor_day > from_date DO
+        WHILE @cursor_day >= from_date DO
             CALL insertOneRow(@cursor_day, '%Y-%m-%d', @cursor_day + interval 1 day, '%Y-%m-%d', s_code, @default_currency, 'forCalculate', 'N', 'daily');
             SET @cursor_day = @cursor_day - interval 1 day;
         END WHILE;
