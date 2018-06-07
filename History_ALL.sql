@@ -92,7 +92,7 @@ t.clear_status,
 t.lock_status,
 t.note
 FROM Transactions t
-JOIN CouponCode c 
+LEFT JOIN CouponCode c 
 ON t.cc_id = c.cc_id
 JOIN CustomerSource cs 
 ON t.source_id = cs.source_id
