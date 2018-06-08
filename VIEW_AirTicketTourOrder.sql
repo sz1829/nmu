@@ -18,14 +18,15 @@ a.locators,
 a.ticket_type, 
 a.round_trip,
 concat(a.adult_number, ' / ', a.child_number, ' / ', a.infant_number) as 'passenger', 
-concat(date_format(a.depart_date, '%Y-%m-%d'), ' / ', a.depart_location) as 'depart',
-concat(date_format(a.arrival_date, '%Y-%m-%d'), ' / ', a.arrival_location) as 'arrival',
+asi.all_schedule,
 a.refunded,
 sn.source_name, 
 t.note,
 t.clear_status,
 t.lock_status
 FROM AirticketTour a 
+LEFT JOIN AirScheduleIntegrated asi 
+ON a.airticket_tour_id = asi.airticket_tour_id
 INNER JOIN Transactions t ON a.airticket_tour_id = t.airticket_tour_id
 LEFT JOIN Salesperson s ON t.salesperson_id = s.salesperson_id
 LEFT JOIN CustomerSource sn ON t.source_id = sn.source_id
