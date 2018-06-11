@@ -2598,7 +2598,7 @@ values
 'oneway',
 'Eqxsigi',
 'N'
-),
+), 
 (
 '26',
 '777',
