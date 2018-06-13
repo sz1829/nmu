@@ -9,7 +9,7 @@ insert into tourdetails (
     lock_status,
     cc_id, 
     coupon
-)
+) values 
 (
 '164',
 '1',
