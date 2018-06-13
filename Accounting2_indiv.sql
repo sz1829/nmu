@@ -19,10 +19,15 @@ UPDATE Transactions SET expense = '1525', total_profit = received + received2 - 
 --使用折扣码
 UPDATE TourDetails SET payment_amount = '123', cc_id = 'abc', coupon = (
     SELECT discount FROM CouponCode WHERE cc_id = 'abc'
-);
+) WHERE indiv_collection_id = 250;
+
+
 
 --使用折扣金额
-UPDATE TourDetails SET payment_amount = '123', cc_id = NULL, coupon = '123'; 
+UPDATE TourDetails SET payment_amount = '123', cc_id = NULL, coupon = '123' WHERE indiv_collection_id = 250;;
+
+--使用rmb
+UPDATE TourDetails SET payment_amount = '123'/(SELECT value FROM OtherInfo WHERE name = 'default_currency'), cc_id = NULL, coupon = '123' WHERE indiv_collection_id = 250;
 
 /*clear*/
 -- indiv_collection_id
