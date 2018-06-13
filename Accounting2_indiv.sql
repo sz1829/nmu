@@ -5,8 +5,7 @@ SELECT currency, revenue, cost, coupon, total_profit FROM IndividualTourOrder WH
 
 
 /* and then, get the list*/
---已经写了
-
+SELECT currency, payment_amount, cc_id, coupon FROM TourDetails WHERE indiv_collection_id = 250;
 
 /* update some info of the whole order*/
 -- update expense, 这里只有成本可以改
