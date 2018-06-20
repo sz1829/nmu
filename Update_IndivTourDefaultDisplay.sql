@@ -8,14 +8,13 @@ WHERE
 transaction_id = '201'
 
 /*get customer list*/
-SELECT * FROM
-(SELECT
+SELECT
 cl.indiv_tour_id, 
 c.fname, c.lname, c.gender, c.birth_date, c.email, c.phone, c.zipcode, c.other_contact_type, c.other_contact_number, 
 cl.join_date, cl.join_location, cl.leave_date, cl.leave_location, cl.note
 FROM TourDetails cl
 JOIN Customer c
-ON cl.customer_id = c.customer_id) client_board
+ON cl.customer_id = c.customer_id
 WHERE 
 indiv_tour_id  = v_indiv_tour_id
 
