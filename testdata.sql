@@ -103,7 +103,7 @@ EOV- 1.E*EMULATION USED WITH SMI
 EOR- 1.EY*PLEASE ENTER RETENTION LINE MACRO#
         5-XQ/GK6@A83/24MAY/0603Z', 'NL5WED-649378');
 
-insert into airticketschedule VALUES
+insert into airschedule VALUES
 (1, 1, 'PEK', 'JFK', '2018-06-14', '2018-07-01'),
 (2, 2, 'PEK', 'JFK', '2018-06-14', '2018-07-01'),
 (3, 2, 'JFK', 'EWK', '2018-07-02', '2018-07-03'),
@@ -132,24 +132,32 @@ insert into wholesaler VALUES
 (2, '迪峰', '1234354393', 'difeng@test.com', '线上产品分销', 'New York', 'Profuct Distribution', 'difeng', 'Mr. Chen', '1237826434');
 
 insert into individualtour VALUES
-(1, 1, 1, 4, '2017-12-12', '2017-12-18', 'Pubu5days', '大瀑布5日游'),
-(2, 2, 3, 10, '2018-08-01', '2018-08-15', 'Tokyo15days', '东京15日深度游');
+(1, 1, 1, 4, '2017-12-12', '2017-12-18', 'Pubu5days', '大瀑布5日游', 6.40),
+(2, 2, 3, 10, '2018-08-01', '2018-08-15', 'Tokyo15days', '东京15日深度游', 6.39);
 
 insert into tourdetails VALUES
-(1, 3, 1, '2017-12-12', '2017-12-18', 'Beijing', 'New York', NULL, 'USD', 'creditecard', 1000, 'N', 'N', 1, 100),
-(2, 4, 1, '2017-12-12', '2017-12-18', 'Beijing', 'New York', NULL, 'USD', 'creditecard', 1000, 'N', 'N', NULL, 0),
-(3, 5, 1, '2017-12-12', '2017-12-18', 'Beijing', 'New York', NULL, 'USD', 'creditecard', 1000, 'N', 'N', NULL, 10),
-(4, 6, 1, '2017-12-12', '2017-12-18', 'Beijing', 'New York', NULL, 'USD', 'creditecard', 1000, 'N', 'N', NULL, 0),
-(5, 7, 1, '2018-01-01', '2018-08-15', 'Beijing', 'New York', NULL, 'USD', 'creditecard', 1000, 'N', 'N', 1, 100),
-(6, 8, 1, '2018-01-01', '2018-08-15', 'Beijing', 'New York', NULL, 'RMB', 'creditecard', 1000, 'N', 'N', 2, 999),
-(7, 9, 1, '2018-01-02', '2018-08-15', 'Los Angeles', 'New York', NULL, 'USD', 'creditecard', 1000, 'N', 'N', NULL, 5),
-(8, 10, 1, '2018-01-03', '2018-08-15', 'Beijing', 'New York', NULL, 'USD', 'creditecard', 1000, 'N', 'N', 1, 100),
-(9, 11, 1, '2018-01-04', '2018-08-15', 'Beijing', 'New York', NULL, 'USD', 'creditecard', 1000, 'N', 'N', NULL, 200),
-(10, 12, 1, '2018-01-01', '2018-08-15', 'Beijing', 'New York', NULL, 'RMB', 'creditecard', 1000, 'N', 'N', NULL, 50),
-(11, 13, 1, '2018-01-01', '2018-08-14', 'Beijing', 'New York', NULL, 'USD', 'creditecard', 1000, 'N', 'N', 3, 10),
-(12, 14, 1, '2018-01-01', '2018-08-13', 'Beijing', 'New York', NULL, 'RMB', 'creditecard', 1000, 'N', 'N', 3, 10),
-(13, 15, 1, '2018-01-01', '2018-08-12', 'Beijing', 'Boston', NULL, 'USD', 'creditecard', 1000, 'N', 'N', NULL, 45),
-(14, 16, 1, '2018-01-01', '2018-08-15', 'Beijing', 'New York', NULL, 'USD', 'creditecard', 1000, 'N', 'N', 3, 10);
+(1, 3, 1, '2017-12-12', '2017-12-18', 'Beijing', 'New York', NULL, 'USD', 'creditcard', 1000, 'N', 'N', 1, 100),
+(2, 4, 1, '2017-12-12', '2017-12-18', 'Beijing', 'New York', NULL, 'USD', 'mco', 1000, 'N', 'N', NULL, 0),
+(3, 5, 1, '2017-12-12', '2017-12-18', 'Beijing', 'New York', NULL, 'USD', 'alipay', 1000, 'N', 'N', NULL, 10),
+(4, 6, 1, '2017-12-12', '2017-12-18', 'Beijing', 'New York', NULL, 'USD', 'wechat', 1000, 'N', 'N', NULL, 0),
+(5, 7, 2, '2018-01-01', '2018-08-15', 'Beijing', 'New York', NULL, 'USD', 'cash', 1000, 'N', 'N', 1, 100),
+(6, 8, 2, '2018-01-01', '2018-08-15', 'Beijing', 'New York', NULL, 'RMB', 'check', 1000, 'N', 'N', 2, 999),
+(7, 9, 2, '2018-01-02', '2018-08-15', 'Los Angeles', 'New York', NULL, 'USD', 'other', 1000, 'N', 'N', NULL, 5),
+(8, 10, 2, '2018-01-03', '2018-08-15', 'Beijing', 'New York', NULL, 'USD', 'creditcard', 1000, 'N', 'N', 1, 100),
+(9, 11, 2, '2018-01-04', '2018-08-15', 'Beijing', 'New York', NULL, 'USD', 'mco', 1000, 'N', 'N', NULL, 200),
+(10, 12, 2, '2018-01-01', '2018-08-15', 'Beijing', 'New York', NULL, 'RMB', 'alipay', 1000, 'N', 'N', NULL, 50),
+(11, 13, 2, '2018-01-01', '2018-08-14', 'Beijing', 'New York', NULL, 'USD', 'wechat', 1000, 'N', 'N', 3, 10),
+(12, 14, 2, '2018-01-01', '2018-08-13', 'Beijing', 'New York', NULL, 'RMB', 'cash', 1000, 'N', 'N', 3, 10),
+(13, 15, 2, '2018-01-01', '2018-08-12', 'Beijing', 'Boston', NULL, 'USD', 'check', 1000, 'N', 'N', NULL, 45),
+(14, 16, 2, '2018-01-01', '2018-08-15', 'Beijing', 'New York', NULL, 'USD', 'other', 1000, 'N', 'N', 3, 10);
+
+insert into usergroup VALUES
+(1, 'normal', '普通用户，仅销售权限，仅能查看用户相关订单'),
+(2, 'accounting', '会计用户，可以查看所有订单并执行clear和lock'),
+(3, 'admin', '管理员用户，拥有所有权限');
+
+insert into useraccount VALUES
+(1, 'sj', '123456', 3, '2018-06-19 00:00:00');
 
 insert into noticeboard VALUES
 (1, '2018-06-15', 1, 'the system is under maintenance', 'highlight', 'bold', 'top'),
@@ -161,14 +169,6 @@ insert into otherinfo VALUES
 insert into questionboard VALUES
 (1, '麻烦看一下有4个V嘛', '2018-05-16 00:03:36', 1, '抱歉，最低只看到Ｔ仓', '2018-05-16 00:28:09', 'solved', 'airticket', '2 DL 267V 15JUL SU JFKSFO');
 
-insert into usergroup VALUES
-(1, 'normal', '普通用户，仅销售权限，仅能查看用户相关订单'),
-(2, 'accounting', '会计用户，可以查看所有订单并执行clear和lock'),
-(3, 'admin', '管理员用户，拥有所有权限');
-
-insert into useraccount VALUES
-(1, 'sj', '123456', 3, '2018-06-19 00:00:00');
-
 insert into thingstodo values 
 (1, '2018-06-19 11:03:00', '完成散拼团的更新页面', 1, 'highlight', 'notice'),
 (2, '2018-06-19 11:03:00', '完成历史订单', 1, 'normal', 'calendar');
@@ -176,11 +176,9 @@ insert into thingstodo values
 insert into transactions VALUES
 (1, 'group', 1, NULL, NULL, 1, 3, 800, 1000, 0, 'creditcard', 190, 'This is the first note for group tour', '2018-05-12 01:01:01', 1, 'USD', 'N', 'N', 10), 
 (2, 'group', 2, NULL, NULL, 2, 1, 4000, 4500, 0, 'cash', 400, 'Second order', '2018-06-30', 2, 'RMB', 'N', 'N', 100), 
-(3, )
-
-
-insert into grouptour VALUES
-(1, 'TEST', 1, '2018-06-15', '2018-07-01', 15, 'TEST0615', 'Test Bus', 1000, 500, 200, 800, 100, 'Tuniu', 1, 1, 4),
-(2, 'TEST2', 2, '2017-12-12', '2018-01-01', 18, 'TEST2018', 'Test Big Bus', 4500, 3000, 500, 4000, 500, 'Tufeng', 2, 2, 10);
+(3, 'individual', NULL, 1, NULL, 1, NULL, 2500, 4000, 0, 'multiple', 1390, NULL, '2017-11-22 13:00:00', 1, 'USD', 'N', 'N', 110),
+(4, 'individual', NULL, 2, NULL, 2, NULL, 3000, 7469.48, 0, 'multiple', 2940.48, NULL, '2017-12-23 00:00:00', 2, 'USD', 'N', 'N', 1529),
+(5, 'airticket', NULL, NULL, 1, 1, 1, 1000, 1500, 50, 'mco', 450, 'This is the first note for airticket tour', '2017-08-01', 2, 'USD', 'N', 'N', 100),
+(6, 'airticket', NULL, NULL, 2, 3, 3, 400, 780, 0, 'wechat', 370, NULL, '2017-05-24', 1, 'RMB', 'N', 'N', 10);
 
 
