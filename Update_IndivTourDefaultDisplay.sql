@@ -5,7 +5,7 @@ SELECT
 indiv_tour_id
 FROM Transactions
 WHERE
-transaction_id = '201'
+transaction_id = '201';
 
 /*get customer list*/
 SELECT

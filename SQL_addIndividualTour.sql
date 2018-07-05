@@ -1,4 +1,4 @@
-INSERT INTO IndividualTour(product_code, tour_name, wholesaler_id, salesperson_id, indiv_number, depart_date, arrival_date)
+INSERT INTO IndividualTour(product_code, tour_name, wholesaler_id, salesperson_id, indiv_number, depart_date, arrival_date, exchange_rate)
 VALUES
 (
 '团号',
@@ -7,7 +7,8 @@ VALUES
 (SELECT salesperson_id FROM Salesperson WHERE salesperson_code = 'xtrteb')
 '参团人数',
 '出发日期',
-'结束日期'
+'结束日期',
+6.59
 );
 
 /*得到indiv_tour_id*/
@@ -56,7 +57,7 @@ v_customer_id
 /*把这个顾客的id用于其他表*/
 
 
-INSERT INTO TourDetails(customer_id, indiv_tour_id, join_date, leave_date, join_location, leave_location, note)
+INSERT INTO TourDetails(customer_id, indiv_tour_id, join_date, leave_date, join_location, leave_location, note, currency, payment_type, payment_amount, cc_id, coupon)
 VALUES
 (
 v_customer_id,
@@ -65,7 +66,12 @@ v_indiv_tour_id,
 '离团时间',
 '参团地点',
 '离团地点',
-'备注');
+'备注', 
+'USD', 
+100,
+'creditcard',
+NULL,
+50);
 
 /* check if the coupon code has expired */
 SELECT cc_id, discount, exipred FROM CouponCode WHERE code = 'whatever'
@@ -74,6 +80,10 @@ SELECT cc_id, discount, exipred FROM CouponCode WHERE code = 'whatever'
 
 /* if an amount of money is input as coupon, set v_cc_id as NULL*/
 v_discount 
+
+
+/*计算总收益*/
+v_received
 
 
 /* 插入Transactions表 */
@@ -101,7 +111,7 @@ VALUES(
     v_cc_id, 
     v_discount, 
     4000,
-    6000, 
+    v_received, 
     'cash', 
     received2+received-expense-v_discount,
     NULL,
