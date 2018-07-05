@@ -35,11 +35,11 @@ insert into airtickettour values
 '1P', 'NL5WED-649378');
 
 insert into airschedule VALUES
-(1, 1, 'PEK', 'JFK', '2018-06-14', '2018-07-01'),
-(2, 2, 'PEK', 'JFK', '2018-06-14', '2018-07-01'),
-(3, 2, 'JFK', 'EWK', '2018-07-02', '2018-07-03'),
-(4, 2, 'EWK', 'JFK', '2018-07-04', '2018-07-05'),
-(5, 2, 'JFK', 'PEK', '2018-07-05', '2018-07-06');
+(1, 1, 'PEK', 'JFK', '2018-06-14'),
+(2, 2, 'PEK', 'JFK', '2018-06-14'),
+(3, 2, 'JFK', 'EWK', '2018-07-02'),
+(4, 2, 'EWK', 'JFK', '2018-07-04'),
+(5, 2, 'JFK', 'PEK', '2018-07-05');
 
 insert into couponcode values 
 (1, 'TEST', 100, 'N', 1, 'Special Discount for Test'),
