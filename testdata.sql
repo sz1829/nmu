@@ -1,7 +1,8 @@
 insert into department values 
-(1, '西安分部', '纳美旅游西安分部'),
-(2, '北京分部', '纳美旅游北京分部'),
-(3, '曼哈顿分部', '纳美旅游曼哈顿分部');
+(1, 'Xian', '纳美旅游西安分部'),
+(2, 'Beijing', '纳美旅游北京分部'),
+(3, 'Manhattan', '纳美旅游曼哈顿分部'),
+(4, 'Flushing', '纳美旅游法拉盛分部');
 
 insert into salesperson VALUES
 (1, 'Shuangjin', 'Zhang', 'sj', '3', '6464968194', 'shuangjin.zhang@aotrip.net', 'IT Department', NULL, 'M', 'Y'),
@@ -35,11 +36,11 @@ insert into airtickettour values
 '1P', 'NL5WED-649378');
 
 insert into airschedule VALUES
-(1, 1, 'PEK', 'JFK', '2018-06-14'),
-(2, 2, 'PEK', 'JFK', '2018-06-14'),
-(3, 2, 'JFK', 'EWK', '2018-07-02'),
-(4, 2, 'EWK', 'JFK', '2018-07-04'),
-(5, 2, 'JFK', 'PEK', '2018-07-05');
+(1, 1, 'PEK', 'JFK', '2018-06-14', 'AA123', '2018-08-14'),
+(2, 2, 'PEK', 'JFK', '2018-06-14', 'AA123', '2018-08-14'),
+(3, 2, 'JFK', 'EWK', '2018-07-02', 'AA123', '2018-08-14'),
+(4, 2, 'EWK', 'JFK', '2018-07-04', 'AA123', '2018-08-14'),
+(5, 2, 'JFK', 'PEK', '2018-07-05', 'AA123', '2018-08-14');
 
 insert into couponcode values 
 (1, 'TEST', 100, 'N', 1, 'Special Discount for Test'),
@@ -101,8 +102,8 @@ insert into questionboard VALUES
 (1, '麻烦看一下有4个V嘛', '2018-05-16 00:03:36', 1, '抱歉，最低只看到Ｔ仓', '2018-05-16 00:28:09', 'solved', 'airticket', '2 DL 267V 15JUL SU JFKSFO');
 
 insert into thingstodo values 
-(1, '2018-06-19 11:03:00', '完成散拼团的更新页面', 1, 'highlight', 'notice'),
-(2, '2018-06-19 11:03:00', '完成历史订单', 1, 'normal', 'calendar');
+(1, '2018-06-19 11:03:00', '完成散拼团的更新页面', 1, 'highlight', 'notice', 'A Title'),
+(2, '2018-06-19 11:03:00', '完成历史订单', 1, 'normal', 'calendar', 'B 标题');
 
 insert into transactions VALUES
 (1, 'group', 1, NULL, NULL, 1, 3, 800, 1000, 0, 'creditcard', 190, 'This is the first note for group tour', '2018-05-12 01:01:01', 1, 'USD', 'N', 'N', 10), 
