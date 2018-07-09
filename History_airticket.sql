@@ -2,6 +2,7 @@ SELECT * FROM (
     SELECT * FROM (
         SELECT 
             ao.transaction_id,
+            ao.create_time, 
             ao.salesperson_code,
             ao.currency,
             ao.total_profit,
