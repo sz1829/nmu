@@ -107,3 +107,18 @@ VALUES
     '2018-01-01 03:04:03',
     'AA 123'
 );
+
+UPDATE AirTicketTour SET 
+itinerary = 'dsfhdskahfdkshf',
+salesperson_id = (
+    SELECT salesperson_id FROM Salesperson WHERE salesperson_code = 'sj'
+),
+locators = 'dfiusahf1',
+invoice = '1231sd',
+flight_code = 'dfhdsif',
+round_trip = 'round',
+ticket_type = 'individual',
+adult_number = '1',
+child_number = '1',
+infant_number = '0',
+refunded = 
