@@ -61,7 +61,7 @@ JOIN CustomerSource cs ON t.source_id = cs.source_id
 JOIN Customer c ON at.customer_id = c.customer_id
 WHERE t.transaction_id = '1';
 
-SELECT flight_number, depart_airpart, arrival_airport FROM AirSchedule 
+SELECT as_id, flight_number, depart_airpart, arrival_airport FROM AirSchedule 
 WHERE airticket_tour_id = (SELECT airticket_tour_id FROM Transactions WHERE transaction_id = '1');
 
 UPDATE Customer SET 
@@ -76,4 +76,34 @@ email = '13743@er.cpd',
 zipcode = '12321'
 WHERE customer_id  = 12;
 
-UPDATE AirSchedule 
+DELETE FROM AirSchedule WHERE as_id IN 
+(
+    SELECT as_id FROM AirSchedule WHERE airticket_tour_id = 
+    (
+        SELECT airticket_tour_id FROM Transactions WHERE transaction_id = '1'
+    )
+);
+
+DELETE FROM AirScheduleIntegrated WHERE airticket_tour_id = 
+(
+    SELECT airticket_tour_id FROM Transactions WHERE transaction_id = '1'
+);
+
+INSERT INTO AirSchedule 
+(
+    airticket_tour_id, 
+    depart_airport, 
+    arrival_airport,
+    depart_date, 
+    arrival_date, 
+    flight_number
+)
+VALUES
+(
+    (SELECT airticket_tour_id FROM Transactions WHERE transaction_id = '1'),
+    'PVG',
+    'EWR',
+    '2018-01-01 01:01:01',
+    '2018-01-01 03:04:03',
+    'AA 123'
+);
