@@ -113,7 +113,6 @@ INSERT INTO AirSchedule
     depart_airport, 
     arrival_airport,
     depart_date, 
-    arrival_date, 
     flight_number
 )
 VALUES
@@ -122,7 +121,6 @@ VALUES
     'PVG',
     'EWR',
     '2018-01-01 01:01:01',
-    '2018-01-01 03:04:03',
     'AA 123'
 );
 
