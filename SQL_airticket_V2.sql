@@ -52,9 +52,9 @@ INSERT INTO AirticketTour
 VALUES 
 (
     'ADSFAWE',
-    (SELECT customer_id FROM Customer WHERE fname = 'aaa' AND lname = 'bbb' AND birth_date = '1991-01-01'), 
+    (SELECT customer_id FROM Customer WHERE fname = 'aaa' AND lname = 'bbb' AND birth_date = '1993-01-02'), 
     (SELECT salesperson_id FROM Salesperson WHERE salesperson_code = 'sj'), 
-    'SWE123',
+    'SWE1233',
     'round', 
     'group', 
     2,
@@ -95,12 +95,13 @@ VALUES
 
 -- get this airticket tour id--
 SELECT max(airticket_tour_id) FROM AirticketTour 
-WHERE salesperson_id = 'sj' 
-AND customer_id = 
+WHERE salesperson_id = 
+(SELECT salesperson_id FROM Salesperson WHERE salesperson_code = 'sj')
+AND customer_id =
     (SELECT customer_id FROM Customer 
     WHERE fname = 'aaa' 
     AND lname = 'bbb' 
-    AND birth_date = '1991-01-01');
+    AND birth_date = '1993-01-02');
 
 -- store as --
 -- v_airticket_tour_id
