@@ -155,7 +155,7 @@ VALUES
     1,
     'cash', 
     received+received2-expense-coupon, 
-    current_timestamps, 
+    current_timestamp, 
     (SELECT source_id FROM CustomerSource WHERE source_name = 'Icvaxibvc'),
     'USD', 
     'N', 
