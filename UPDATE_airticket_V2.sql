@@ -17,7 +17,7 @@ WHERE transaction_id LIKE '%'
 AND create_time < current_timestamp 
 AND create_time >= '%'
 AND locators LIKE '%'
-AND salesperson_code LIKE 'yvfpg'
+AND salesperson_code LIKE 'sj'
 AND clear_status = 'N'
 AND lock_status = 'N'
 LIMIT 15;
@@ -61,7 +61,7 @@ JOIN CustomerSource cs ON t.source_id = cs.source_id
 JOIN Customer c ON at.customer_id = c.customer_id
 WHERE t.transaction_id = '1';
 
-SELECT as_id, flight_number, depart_airpart, arrival_airport FROM AirSchedule 
+SELECT as_id, flight_number, depart_airport, arrival_airport FROM AirSchedule 
 WHERE airticket_tour_id = (SELECT airticket_tour_id FROM Transactions WHERE transaction_id = '1');
 
 UPDATE Customer SET 
@@ -74,7 +74,7 @@ birth_date = '1990-01-01',
 gender = 'M',
 email = '13743@er.cpd',
 zipcode = '12321'
-WHERE customer_id  = 12;
+WHERE customer_id  = 21;
 
 DELETE FROM AirSchedule WHERE as_id IN 
 (
@@ -121,4 +121,5 @@ ticket_type = 'individual',
 adult_number = '1',
 child_number = '1',
 infant_number = '0',
-refunded = 
+refunded = 'N',
+passenger,
