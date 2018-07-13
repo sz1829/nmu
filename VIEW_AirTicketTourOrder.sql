@@ -21,6 +21,7 @@ a.round_trip,
 concat(a.adult_number, ' / ', a.child_number, ' / ', a.infant_number) as 'passenger', 
 asi.all_schedule,
 a.refunded,
+ta.agency_name,
 sn.source_name, 
 t.note,
 t.clear_status,
@@ -32,5 +33,6 @@ INNER JOIN Transactions t ON a.airticket_tour_id = t.airticket_tour_id
 LEFT JOIN Salesperson s ON t.salesperson_id = s.salesperson_id
 LEFT JOIN CustomerSource sn ON t.source_id = sn.source_id
 LEFT JOIN Customer c ON a.customer_id = c.customer_id
+JOIN TravelAgency ta ON a.ta_id = ta.ta_id
 ORDER BY transaction_id DESC
 
