@@ -41,14 +41,12 @@ INSERT INTO QuestionBoard
     ask_salesperson_id,
     question_content,
     ta_id, 
-    source
 ) VALUES
 (
     'fhdlsiahf',
     current_timestamp,
     '1',
     'dsfhdsf',
-    NULL,
-    'namei'
+    NULL
 );
 
