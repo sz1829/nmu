@@ -40,7 +40,7 @@ INSERT INTO QuestionBoard
     question_time, 
     ask_salesperson_id,
     question_content,
-    ta_id, 
+    ta_id
 ) VALUES
 (
     'fhdlsiahf',

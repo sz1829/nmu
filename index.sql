@@ -6,16 +6,15 @@ SELECT count(*) FROM ThingsToDo WHERE user_id = 'sj' AND type = 'notice';
 
 /* 日历*/
 --for default display
-SELECT title, create_time, importance FROM ThingsToDo WHERE create_time >= DATE_FORMAT(CURRENT_DATE, '%Y-&m-01')
+SELECT tto_id, title, create_time FROM ThingsToDo WHERE create_time >= DATE_FORMAT(CURRENT_DATE, '%Y-&m-01')
 AND create_time < DATE_FORMAT(CURRENT_DATE, '%Y-&m-01') + interval 1 month
 AND user_id = 'sj';
 
 
-INSERT INTO ThingsToDo(create_time, content, user_id, importance, type, title) 
+INSERT INTO ThingsToDo(create_time, content, user_id, type, title) 
 VALUES (CURRENT_DATE, 
         'dfhi hf  isdhfis  dhfdfhi hf  isdhfis  dhfdfhi hf  isdhfis  dhfdfhi hf  isdhfis  dhf', 
         'sj', 
-        'highlight', 
         'calendar', 
         'dfhi ');
 
@@ -28,7 +27,7 @@ title = 'dfuhdisf',
 content = 'dfhi hf  isdhfis  dhfdfhi hf  isdhfis  dhfdfhi hf  isdhfis  dhfdfhi hf  isdhfis  dhf'
 WHERE create_time = '2018-07-05' AND user_id = 'sj';
 
-DELETE FROM ThingsToDo WHERE tto_id = (SELECT tto_id FROM ThingsToDo WHERE create_time = '2018-07-05' AND user_id = 'sj');
+DELETE FROM ThingsToDo WHERE tto_id = ;
 
 
 /*待处理事项*/
