@@ -19,15 +19,16 @@ VALUES (CURRENT_DATE,
         'dfhi ');
 
 -- 点击以后显示
-SELECT title, content FROM ThingsToDo WHERE create_time = '2018-07-05' AND user_id ='sj';
+SELECT tto_id, title, content FROM ThingsToDo WHERE create_time = '2018-07-05' AND user_id ='sj';
 
 
 UPDATE ThingsToDo SET 
 title = 'dfuhdisf',
 content = 'dfhi hf  isdhfis  dhfdfhi hf  isdhfis  dhfdfhi hf  isdhfis  dhfdfhi hf  isdhfis  dhf'
-WHERE create_time = '2018-07-05' AND user_id = 'sj';
+WHERE tto_id = 1;
+-- WHERE create_time = '2018-07-05' AND user_id = (SELECT user_id FROM UserAccount WHERE account_id = 'sj');
 
-DELETE FROM ThingsToDo WHERE tto_id = ;
+DELETE FROM ThingsToDo WHERE tto_id = '1';
 
 
 /*待处理事项*/
