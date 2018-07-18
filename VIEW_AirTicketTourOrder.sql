@@ -5,7 +5,6 @@ t.transaction_id,
 date_format(t.create_time, '%Y-%m-%d') as 'create_time', 
 s.salesperson_code, 
 concat(c.fname, ' ', c.lname) as 'name',
-/*if Chinese, concat(c.lname, c.fname) as 'name' */
 t.currency, 
 t.payment_type, 
 t.total_profit, 
@@ -33,6 +32,6 @@ INNER JOIN Transactions t ON a.airticket_tour_id = t.airticket_tour_id
 LEFT JOIN Salesperson s ON t.salesperson_id = s.salesperson_id
 LEFT JOIN CustomerSource sn ON t.source_id = sn.source_id
 LEFT JOIN Customer c ON a.customer_id = c.customer_id
-JOIN TravelAgency ta ON a.ta_id = ta.ta_id
+LEFT JOIN TravelAgency ta ON a.ta_id = ta.ta_id
 ORDER BY transaction_id DESC
 
