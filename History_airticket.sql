@@ -48,7 +48,7 @@ AND ao.payment_type LIKE '%'
 AND 
 (
     (ao.currency = 'USD'
-    AND ao.total_profit >= -999999999.99
+    AND ao.total_profit >= -999999999.99 
     AND ao.total_profit <= 999999999.99
     AND ao.expense >= -999999999.99
     AND ao.expense <= 999999999.99
@@ -68,8 +68,8 @@ AND
 AND ao.salesperson_code LIKE '%'
 AND ao.source_name LIKE '%'
 AND ao.agency_name LIKE '%'
-AND a.adult_number <= 9999
-ANd a.adult_number >= 0
+AND a.adult_number <= 1
+ANd a.adult_number >= 1
 AND a.child_number <= 9999
 ANd a.child_number >= 0
 AND a.infant_number <= 9999
