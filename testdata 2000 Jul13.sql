@@ -18299,3 +18299,4 @@ insert into Transactions VALUES
 (5999,'airticket',NULL,NULL,1115,9,NULL,3690,3868,0,'wechat',171,NULL,'2018/07/06',1,'USD','N','N',7);
 update Transactions set received = received/10, received2 = received2/10, expense = expense/10, total_profit = received+received2-expense-coupon where type = 'group';
 
+--test--
