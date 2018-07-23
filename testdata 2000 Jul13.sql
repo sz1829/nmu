@@ -18297,5 +18297,5 @@ insert into Transactions VALUES
 (5997,'individual',NULL,12,NULL,9,NULL,1303,1483,0,'wechat',174,NULL,'2018/07/06',2,'USD','N','N',6),
 (5998,'group',1787,NULL,NULL,9,NULL,1551,2411,0,'multiple',853,NULL,'2018/07/06',2,'USD','N','N',7),
 (5999,'airticket',NULL,NULL,1115,9,NULL,3690,3868,0,'wechat',171,NULL,'2018/07/06',1,'USD','N','N',7);
-update transactions set received = received/10, received2 = received2/10, expense = expense/10, total_profit = received+received2-expense-coupon where type = 'group';
+update Transactions set received = received/10, received2 = received2/10, expense = expense/10, total_profit = received+received2-expense-coupon where type = 'group';
 
