@@ -58,6 +58,6 @@ AND
     )
 AND s.salesperson_code LIKE '%'
 AND cs.source_name LIKE '%'
-AND type IN ('individual', 'group')
+AND t.type IN ('individual', 'group')
 ORDER BY t.transaction_id DESC 
 LIMIT 15;    
