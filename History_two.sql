@@ -1,16 +1,18 @@
 SELECT 
     t.transaction_id,
-    t.salesperson_code,
+    s.salesperson_code,
     t.total_profit,
     t.received+t.received2 AS revenue,
     t.expense,
     (SELECT code FROM CouponCode WHERE cc_id = t.cc_id) AS couponCode,
-    s.source_name, 
+    t.coupon,
+    cs.source_name, 
     t.clear_status,
     t.lock_status, 
     t.note
-FROM Traansactions t
-JOIN CustomerSource s ON t.source_id = s.source_id
+FROM Transactions t
+JOIN CustomerSource cs ON t.source_id = cs.source_id
+JOIN Salesperson s ON t.salesperson_id = s.salesperson_id
 WHERE t.transaction_id LIKE '%'
 /*只点了“未完成订单”*/
 AND t.clear_status = 'N'
@@ -54,27 +56,8 @@ AND
     AND (t.received+t.received2)/(SELECT value FROM OtherInfo WHERE name = 'default_currency') >= -999999999.99
     AND (t.received+t.received2)/(SELECT value FROM OtherInfo WHERE name = 'default_currency') <= 999999999.99
     )
-)
-AND t.salesperson_code LIKE '%'
-AND ao.source_name LIKE '%'
-AND ao.agency_name LIKE '%'
-AND a.adult_number <= 1
-ANd a.adult_number >= 1
-AND a.child_number <= 9999
-ANd a.child_number >= 0
-AND a.infant_number <= 9999
-ANd a.infant_number >= 0
-AND ao.flight_code LIKE '%'
-AND ao.transaction_id IN 
-(
-    SELECT transaction_id FROM Transactions WHERE airticket_tour_id IN 
-    (
-        SELECT DISTINCT airticket_tour_id FROM AirSchedule WHERE 
-        depart_airport LIKE '%' 
-        AND arrival_airport LIKE '%' 
-        AND depart_date >= 0 
-        AND depart_date <= current_timestamp
-    )
-)
-ORDER BY ao.transaction_id DESC 
+AND s.salesperson_code LIKE '%'
+AND cs.source_name LIKE '%'
+AND type IN ('individual', 'group')
+ORDER BY t.transaction_id DESC 
 LIMIT 15;    
