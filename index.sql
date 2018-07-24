@@ -142,3 +142,13 @@ AND type = 'airticket'
 AND salesperson_id = (SELECT salesperson_id FROM Salesperson WHERE salesperson_code = 'sj')
 AND create_time <= current_timestamp
 AND create_time >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01');
+
+
+/*销售总榜*/
+SELECT concat(s.lname, s.fname) AS salesperson_name FROM Salesperson s 
+JOIN Transactions t ON s.salesperson_id = t.salesperson_id 
+WHERE create_time <= current_timestamp 
+AND create_time >= current_timestamp - interval 7 day
+GROUP BY t.salesperson_id
+ORDER BY sum(total_profit) DESC
+LIMIT 3;
