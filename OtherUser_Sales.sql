@@ -1,6 +1,26 @@
 SELECT fname, lname, gender, phone, department_id, email, other_information
 FROM Salesperson WHERE salesperson_code = 'sj';
 
+
+/*if returns null*/
+
+INSERT INTO Salesperson(fname, lname, salesperson_code, department_id, phone, email, description, gender, active_status)
+VALUES 
+(
+    'sdf',
+    'sdf',
+    'sj',
+    '1',
+    '123213',
+    '12313132',
+    '123213',
+    'M',
+    'Y'
+);
+
+/*otherwise*/
+
+
 UPDATE Salesperson SET
 fname = 'Shuangjin', 
 lname = 'Zhang', 
