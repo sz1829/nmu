@@ -9,12 +9,12 @@ s.salesperson_code,
 t.currency, 
 t.payment_type,
 t.total_profit as 'profit',
-g.price,
-concat(g.reserve+g.write_off, '(', g.reserve, '/', g.write_off, ')') AS 'cost', 
+t.received AS price,
+concat(g.reserve+sum(gtg.write_off), '(', g.reserve, '/', sum(gtg.write_off), ')') AS 'cost', 
 g.flight_number, 
 g.bus_company, 
 concat(date_format(g.start_date, '%Y-%m-%d'), '/', date_format(g.end_date, '%Y-%m-%d')) as 'schedule', 
-concat(tg.fname, ' ', tg.lname) AS 'guide_name', 
+group_concat(concat(tg.fname, ' ', tg.lname) SEPARATOR ', ') AS 'guide_name', 
 tg.phone AS 'guide_phone', 
 g.agency_name, 
 cs.source_name, 
@@ -24,9 +24,10 @@ t.lock_status,
 t.note
 FROM Transactions t 
 INNER JOIN GroupTour g ON t.group_tour_id = g.group_tour_id
-LEFT JOIN TouristGuide tg ON g.guide_id = tg.guide_id
 LEFT JOIN CustomerSource cs ON t.source_id = cs.source_id
 LEFT JOIN CouponCode cc ON t.cc_id = cc.cc_id
 LEFT JOIN Salesperson s ON t.salesperson_id = s.salesperson_id
+JOIN GroupTourGuideDetails gtg ON g.group_tour_id = gtg.group_tour_id
+JOIN TouristGuide tg ON gtg.guide_id = tg.guide_id
+GROUP BY g.group_tour_id 
 ORDER BY t.transaction_id DESC
-
