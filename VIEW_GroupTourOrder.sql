@@ -16,7 +16,7 @@ g.bus_company,
 concat(date_format(g.start_date, '%Y-%m-%d'), '/', date_format(g.end_date, '%Y-%m-%d')) as 'schedule', 
 group_concat(concat(tg.fname, ' ', tg.lname) SEPARATOR ', ') AS 'guide_name', 
 tg.phone AS 'guide_phone', 
-g.agency_name, 
+w.wholesaler_code as 'agency_name',
 cs.source_name, 
 t.coupon AS 'coupon', 
 t.clear_status, 
@@ -29,5 +29,6 @@ LEFT JOIN CouponCode cc ON t.cc_id = cc.cc_id
 LEFT JOIN Salesperson s ON t.salesperson_id = s.salesperson_id
 JOIN GroupTourGuideDetails gtg ON g.group_tour_id = gtg.group_tour_id
 JOIN TouristGuide tg ON gtg.guide_id = tg.guide_id
+JOIN Wholesaler w ON g.wholesaler_id = w.wholesaler_id
 GROUP BY g.group_tour_id 
 ORDER BY t.transaction_id DESC
