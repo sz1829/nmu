@@ -2162,11 +2162,6 @@ insert into TouristGuide VALUES
 
 
 
-insert into GroupTour VALUES
-(1,'Tour1',10,'2017/01/27','2017/02/06',10,'CA615','Eagle',2804,526,393,2,5,1),
-(2,'Tour2',10,'2016/03/03','2016/03/09',6,'CA618','Eagle',2083,320,544,1,2,1),
-(3,'Tour3',10,'2016/09/06','2016/09/11',5,'CA621','Eagle',3359,397,338,2,5,1);
-
 
 
 insert into Wholesaler VALUES
@@ -2181,6 +2176,11 @@ insert into Wholesaler VALUES
 (9,'路路','1232859914','lulu@test.com','融资达人','California','Platform','lulu','王先生','9424567894'),
 (10,'携程','1232646417','xiecheng@test.com','巨头','Beijing','Platform','ctrip','让先生','9427826438');
 
+
+insert into GroupTour VALUES
+(1,'Tour1',10,'2017/01/27','2017/02/06',10,'CA615','Eagle',2804,526,393,2,5,1),
+(2,'Tour2',10,'2016/03/03','2016/03/09',6,'CA618','Eagle',2083,320,544,1,2,1),
+(3,'Tour3',10,'2016/09/06','2016/09/11',5,'CA621','Eagle',3359,397,338,2,5,1);
 
 
 insert into IndividualTour VALUES
@@ -10335,3 +10335,88 @@ insert into Transactions VALUES
 (33,'airticket',NULL,NULL,1798,18,NULL,1536,1653,0,'cash',115,NULL,'2017/01/02',4,'USD','N','N',2),
 (34,'individual',NULL,1987,NULL,3,NULL,1271,1401,0,'creditcard',126,NULL,'2017/01/02',2,'USD','N','N',4),
 (35,'individual',NULL,1887,NULL,9,NULL,1835,1906,0,'mco',71,NULL,'2017/01/02',2,'USD','N','N',0);
+
+
+
+
+
+INSERT INTO GroupTourGuideDetails
+(
+    gd_id, 
+    group_tour_id, 
+    guide_id, 
+    write_off
+) VALUES 
+(
+    1,
+    1,
+    1,
+    100
+),
+(
+    2,
+    1,
+    1,
+    100
+),
+(
+    3,
+    2,
+    1,
+    100
+),
+(
+    4,
+    2,
+    1,
+    100
+),
+(
+    5,
+    3,
+    1,
+    100
+),
+(
+    6,
+    3,
+    1,
+    100
+);
+
+INSERT INTO GroupTourReceived
+(
+    gtr_id,
+    group_tour_id,
+    received
+) VALUES 
+(
+    1,
+    1,
+    200
+),
+(
+    2,
+    1,
+    200
+),
+(
+    3,
+    2,
+    200
+),
+(
+    4,
+    2,
+    200
+),
+(
+    5,
+    2,
+    200
+),
+(
+    6,
+    3,
+    200
+);
