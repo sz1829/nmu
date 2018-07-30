@@ -145,10 +145,29 @@ AND create_time >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01');
 
 
 /*销售总榜*/
-SELECT concat(s.lname, s.fname) AS salesperson_name FROM Salesperson s 
-JOIN Transactions t ON s.salesperson_id = t.salesperson_id 
-WHERE create_time <= current_timestamp 
-AND create_time >= current_timestamp - interval 7 day
-GROUP BY t.salesperson_id
-ORDER BY sum(total_profit) DESC
-LIMIT 3;
+SELECT concat(s.lname, ' ', s.fname) AS salesperson_name, 
+IFNULL(t1_usd.sum_profit, 0)+IFNULL(t2_rmb.sum_profit, 0) AS sum_usd_profit 
+FROM Salesperson s 
+LEFT JOIN 
+(
+        SELECT salesperson_id, sum(total_profit) AS sum_profit, type
+        FROM Transactions WHERE 
+        currency = 'USD' AND
+        create_time <= current_timestamp AND 
+        create_time >= current_timestamp - interval 7000 day AND
+        type = 'group'
+        GROUP BY salesperson_id 
+) t1_usd
+ON s.salesperson_id = t1_usd.salesperson_id 
+LEFT JOIN 
+(
+        SELECT salesperson_id, sum(total_profit)/(SELECT value FROM OtherInfo WHERE name = 'default_currency') AS sum_profit, type
+        FROM Transactions WHERE 
+        currency = 'RMB' AND
+        create_time <= current_timestamp AND 
+        create_time >= current_timestamp - interval 7000 day AND
+        type = 'group'
+        GROUP BY salesperson_id   
+) t2_rmb
+ON s.salesperson_id = t2_rmb.salesperson_id
+ORDER BY sum_usd_profit DESC LIMIT 1;
