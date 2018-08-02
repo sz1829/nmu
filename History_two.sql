@@ -7,7 +7,7 @@ SELECT
     (SELECT code FROM CouponCode WHERE cc_id = t.cc_id) AS couponCode,
     t.coupon,
     cs.source_name, 
-    t.clear_status,
+    t.clear_status, 
     t.lock_status, 
     t.note
 FROM Transactions t

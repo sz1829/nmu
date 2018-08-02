@@ -29,18 +29,6 @@ WHERE ao.transaction_id LIKE '%'
 /*只点了“未完成订单”*/
 AND ao.clear_status = 'N'
 AND ao.lock_status = 'N'
-/*点了“未完成订单”和“clear订单”*/
---AND lock_status = 'N'
-/*点了“未完成订单”和“lock订单”，此时“clear订单”会自动被勾上*/
---无条件
-/*只点了“clear订单”*/
---AND clear_status = 'Y'
---AND lock_status = 'N'
-/*点了“clear订单”和“lock订单”*/
---AND (clear_status = 'Y' OR lock_status = 'Y')
-/*只点了“lock订单”，“clear”会被自动勾上，所以同上*/
-/*三个全点*/
---无条件
 AND ao.locators LIKE '%'
 AND ao.create_time <= current_timestamp
 AND ao.create_time >= 0
@@ -76,16 +64,11 @@ AND a.infant_number <= 9999
 ANd a.infant_number >= 0
 AND ao.flight_code LIKE '%'
 AND ao.transaction_id IN 
-(
-    SELECT transaction_id FROM Transactions WHERE airticket_tour_id IN 
-    (
-        SELECT DISTINCT airticket_tour_id FROM AirSchedule WHERE 
-        depart_airport LIKE '%' 
-        AND arrival_airport LIKE '%' 
-        AND depart_date >= 0 
-        AND depart_date <= current_timestamp
-    )
-)
+(SELECT transaction_id FROM Transactions WHERE airticket_tour_id IN (SELECT DISTINCT airticket_tour_id FROM AirSchedule WHERE 
+depart_airport LIKE '%' 
+AND arrival_airport LIKE '%' 
+AND depart_date >= 0 
+AND depart_date <= current_timestamp))
 AND 
 /*仅中间的%用于替换*/
 (c.fname LIKE '%%%'
@@ -93,5 +76,4 @@ OR c.lname LIKE '%%%')
 AND ao.round_trip LIKE '%'
 AND ao.ticket_type LIKE '%'
 AND ao.refunded LIKE '%'
-ORDER BY ao.transaction_id DESC 
-LIMIT 15;    
+ORDER BY ao.transaction_id DESC LIMIT 15;
