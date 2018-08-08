@@ -3,7 +3,8 @@ FOR EACH ROW
 BEGIN 
 IF NEW.type = 'individual' THEN
     SET @indiv_tour_id = NEW.indiv_tour_id;
-    SELECT 
+    SELECT  
+
 END IF;
 END
 
