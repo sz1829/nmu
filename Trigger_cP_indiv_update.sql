@@ -1,0 +1,3 @@
+CREATE TRIGGER updateIndividualTour AFTER UPDATE ON IndividualTour 
+FOR EACH ROW
+BEGIN
