@@ -9,9 +9,9 @@ SET @new_received2 = IFNULL(NEW.received2, 0);
 SET @new_coupon = IFNULL(NEW.coupon, 0);
 
 SET @new_base_currency = IFNULL(NEW.base_currency, OLD.base_currency);
-SET @new_sale_currency = IFNULL(NEW.sale_currency, OLD.base_currency);
-SET @new_received2_currency = IFNULL(NEW.received2_currency, OLD.base_currency);
-SET @new_coupon_currency = IFNULL(NEW.coupon_currency, OLD.base_currency);
+SET @new_sale_currency = IFNULL(NEW.sale_currency, OLD.sale_currency);
+SET @new_received2_currency = IFNULL(NEW.received2_currency, OLD.sale_currency);
+SET @new_coupon_currency = IFNULL(NEW.coupon_currency, OLD.coupon_currency);
 
 SELECT currency FROM Transactions WHERE airticket_tour_id = @airticket_tour_id INTO @t_currency;
 SET @t_currency = IFNULL(@t_currency, 'USD');

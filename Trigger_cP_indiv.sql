@@ -9,7 +9,6 @@ IF NEW.type = 'individual' THEN
     SELECT base_currency FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @base_currency;
     SELECT coupon_currency FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @coupon_currency;
     SELECT exchange_rate FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @exchange_rate_usd_rmb;
-    SELECT count(DISTINCT payment_type) FROM TourDetails WHERE indiv_tour_id = NEW.indiv_tour_id INTO @payment_type_number;
     IF @base_currency = @sale_currency AND @sale_currency = @coupon_currency THEN
         SET NEw.currency = @sale_currency;
         SET NEW.expense = IFNULL(@base_price, 0);
@@ -36,11 +35,6 @@ IF NEW.type = 'individual' THEN
             NEW.coupon = IFNULL(@coupon, 0),
             NEW.total_profit = NEW.received - NEW.expense - NEW.coupon;
     END IF;
-    IF @payment_type_number = 1 THEN
-        SELECT DISTINCT payment_type FROM TourDetails WHERE indiv_tour_id = NEW.indiv_tour_id INTO @payment_type_one;
-        SET NEW.payment_type = @payment_type_one;
-    ELSE 
-        SET NEW.payment_type = 'multiple';
 END IF;
 END
 

@@ -42,4 +42,11 @@ ELSE
         UPDATE IndividualTour SET coupon = @it_coupon + @td_coupon, coupon_currency = 'USD' WHERE indiv_tour_id = NEW.indiv_tour_id;
     END IF;
 END IF;
+SELECT count(DISTINCT payment_type) FROM TourDetails WHERE indiv_tour_id = NEW.indiv_tour_id INTO @payment_type_number;
+IF @payment_type_number = 1 THEN
+    SELECT DISTINCT payment_type FROM TourDetails WHERE indiv_tour_id = NEW.indiv_tour_id INTO @payment_type_one;
+    UPDATE Transactions SET payment_type = @payment_type_one WHERE indiv_tour_id = NEW.indiv_tour_id;
+ELSE
+    UPDATE Transactions SET payment_type = 'multiple' WHERE indiv_tour_id = NEW.indiv_tour_id;
+END IF;
 END
