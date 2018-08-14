@@ -7,12 +7,8 @@ SELECT sale_price FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id IN
 SET @new_payment_amount = NEW.payment_amount;
 SET @old_payment_amount = OLD.payment_amount;
 
-IF @sale_currency = NEW.payment_amount_currency THEN
-    IF OLD.payment_amount_currency = 'RMB' AND @sale_currency = 'USD' THEN 
-        UPDATE IndividualTour SET sale_price = sale_price - OLD.payment_amount / @exchange_rate + NEW.payment_amount WHERE indiv_tour_id = NEW.indiv_tour_id;
-    ELSE     
-        UPDATE IndividualTour SET sale_price = sale_price - OLD.payment_amount + NEW.payment_amount WHERE indiv_tour_id = NEW.indiv_tour_id;
-    END IF;
+IF @sale_currency = NEW.payment_amount_currency AND OLD.payment_amount_currency = @sale_currency THEN 
+    UPDATE IndividualTour SET sale_price = sale_price - OLD.payment_amount + NEW.payment_amount WHERE indiv_tour_id = NEW.indiv_tour_id;
 ELSE 
     IF @sale_currency = 'RMB' THEN 
         SET @sale_price = @sale_price / @exchange_rate;
@@ -20,10 +16,10 @@ ELSE
     IF NEW.payment_amount_currency = 'RMB' THEN 
         SET @new_payment_amount = @new_payment_amount / @exchange_rate;
     END IF;
-    IF @OLD.payment_amount_currency = 'RMB' THEN 
+    IF OLD.payment_amount_currency = 'RMB' THEN 
         SET @old_payment_amount = @old_payment_amount / @exchange_rate;
     END IF;
-    UPDATE IndividualTour SET sale_price = @sale_price - @old_payment_amount + @new_payment_amount WHERE indiv_tour_id = NEW.indiv_tour_id;
+    UPDATE IndividualTour SET sale_price = @sale_price - @old_payment_amount + @new_payment_amount, sale_currency = 'USD' WHERE indiv_tour_id = NEW.indiv_tour_id;
 END IF;
 
 
@@ -32,24 +28,35 @@ SELECT coupon FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @
 SET @new_coupon = NEW.coupon;
 SET @old_coupon = OLD.coupon;
 
-
-IF @coupon_currency = NEW.coupon_currency THEN
-    IF OLD.coupon_currency = 'RMB' AND @coupon_currency = 'USD' THEN 
-        UPDATE IndividualTour SET coupon = coupon - OLD.coupon / @exchange_rate + NEW.coupon WHERE indiv_tour_id = NEW.indiv_tour_id;
-    ELSE     
+IF NEW.coupon <> 0 THEN
+    IF NEW.coupon_currency = OLD.coupon_currency AND NEW.coupon_currency = @coupon_currency THEN
         UPDATE IndividualTour SET coupon = coupon - OLD.coupon + NEW.coupon WHERE indiv_tour_id = NEW.indiv_tour_id;
+    ELSE 
+        IF @coupon_currency = 'RMB' THEN 
+            SET @coupon = @coupon / @exchange_rate;
+        END IF;
+        IF NEW.coupon_currency = 'RMB' THEN 
+            SET @new_coupon = @new_coupon / @exchange_rate;
+        END IF;
+        IF OLD.coupon_currency = 'RMB' THEN 
+            SET @old_coupon = @old_coupon / @exchange_rate;
+        END IF;
+        UPDATE IndividualTour SET coupon = @coupon - @old_coupon + @new_coupon, coupon_currency = 'USD' WHERE indiv_tour_id = NEW.indiv_tour_id;
     END IF;
 ELSE 
-    IF @coupon_currency = 'RMB' THEN 
-        SET @coupon = @coupon / @exchange_rate;
+    IF OLD.coupon <> 0 THEN 
+        IF OLD.coupon_currency = @coupon_currency THEN 
+            UPDATE IndividualTour SET coupon = coupon - OLD.coupon WHERE indiv_tour_id = NEW.indiv_tour_id;
+        ELSE 
+            IF @coupon_currency = 'RMB' THEN 
+                SET @coupon = @coupon / @exchange_rate;
+            END IF;
+            IF OLD.coupon_currency = 'RMB' THEN 
+                SET @old_coupon = @old_coupon / @exchange_rate;
+            END IF;
+            UPDATE IndividualTour SET coupon = @coupon - @old_coupon, coupon_currency = 'USD' WHERE indiv_tour_id = NEW.indiv_tour_id;
+        END IF;
     END IF;
-    IF NEW.coupon_currency = 'RMB' THEN 
-        SET @new_coupon = @new_coupon / @exchange_rate;
-    END IF;
-    IF @OLD.coupon_currency = 'RMB' THEN 
-        SET @old_coupon = @old_coupon / @exchange_rate;
-    END IF;
-    UPDATE IndividualTour SET coupon = @coupon - @old_coupon + @new_coupon WHERE indiv_tour_id = NEW.indiv_tour_id;
 END IF;
 
 SET @indiv_tour_id = NEW.indiv_tour_id;

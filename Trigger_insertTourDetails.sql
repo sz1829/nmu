@@ -28,7 +28,11 @@ ELSE
 END IF;
 
 IF @it_coupon = 0 THEN 
-    UPDATE IndividualTour SET coupon_currency = NEW.coupon_currency, coupon = NEW.coupon WHERE indiv_tour_id = NEW.indiv_tour_id;
+    IF NEW.coupon <> 0 THEN 
+        UPDATE IndividualTour SET coupon_currency = NEW.coupon_currency, coupon = NEW.coupon WHERE indiv_tour_id = NEW.indiv_tour_id;
+    ELSE 
+        UPDATE IndividualTour SET coupon_currency = NEW.payment_amount_currency, coupon = 0 WHERE indiv_tour_id = NEW.indiv_tour_id;
+    END IF;
 ELSE 
     IF @it_coupon_currency = NEW.coupon_currency THEN
         UPDATE IndividualTour SET coupon = coupon + NEW.coupon WHERE indiv_tour_id = NEW.indiv_tour_id;
