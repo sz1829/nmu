@@ -3,7 +3,7 @@ FOR EACH ROW
 BEGIN
 SELECT received FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO @t_received;
 SELECT currency FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO @t_currency;
-SELECT exchange_rate_usd_rmb FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO @exchange_rate;
+SELECT exchange_rate_usd_rmb FROM GroupTour WHERE group_tour_id = NEW.group_tour_id INTO @exchange_rate;
 SELECT expense FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO @expense;
 SELECT coupon FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO @coupon;
 IF @t_received <> NEW.received THEN
