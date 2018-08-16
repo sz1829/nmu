@@ -97,7 +97,7 @@ IF NEW.type = 'group' THEN
             SET @total_cost = @total_cost / @exchange_rate_usd_rmb;
             SET @total_xost_currency = 'USD';
         END IF;
-        IF @received_currency = 'RMB' THEN 
+        IF @coupon_currency = 'RMB' THEN 
             SET @coupon = @coupon / @exchange_rate_usd_rmb;
             SET @coupon_currency = 'USD';
         END IF;       
@@ -109,4 +109,4 @@ IF NEW.type = 'group' THEN
     SET NEW.currency = @received_currency;
 END IF;
 END
-
+ 
