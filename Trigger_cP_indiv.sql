@@ -10,7 +10,7 @@ IF NEW.type = 'individual' THEN
     SELECT coupon_currency FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @coupon_currency;
     SELECT exchange_rate FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @exchange_rate_usd_rmb;
     IF @base_currency = @sale_currency AND @sale_currency = @coupon_currency THEN
-        SET NEw.currency = @sale_currency;
+        SET NEW.currency = @sale_currency;
         SET NEW.expense = IFNULL(@base_price, 0);
         SET NEW.received = IFNULL(@sale_price, 0);
         SET NEW.coupon = IFNULL(@coupon, 0);

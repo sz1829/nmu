@@ -1,41 +1,16 @@
 /*表格显示*/
+
+
 --管理员登陆--
-/*只查看未过期公告*/
-SELECT notice_id, category, edited_by, content FROM NoticeBoard WHERE valid_untile <= CURRENT_DATE AND target_at LIKE '%';
-/*只查看未过期公告+只看MCO*/
-SELECT n.notice_id, n.category, n.edited_by, 
-m.cardholder, 
-m.card_number, 
-m.exp_date, 
-m.security_code, 
-m.billing_address,
-m.phone_issuing_bank, 
-m.charging_amount_currency,
-m.charging_amount
-FROM NoticeBoard n 
-JOIN McoInfo m 
-ON n.notice_id = m.notice_id
-WHERE valid_until <= CURRENT_DATE AND target_at LIKE '%' AND category = 'MCO';
+/*只查看未过期+公告*/
+SELECT category, edited_by, content 
+FROM NoticeBoard 
+WHERE valid_until >= CURRENT_DATE
+AND target_at IS NULL
+ORDER BY notice_id DESC;
 
-/*只看MCO*/
-
-SELECT n.notice_id, n.category, n.edited_by, 
-m.cardholder, 
-m.card_number, 
-m.exp_date, 
-m.security_code, 
-m.billing_address,
-m.phone_issuing_bank, 
-m.charging_amount_currency,
-m.charging_amount
-FROM NoticeBoard n 
-JOIN McoInfo m 
-ON n.notice_id = m.notice_id
-WHERE target_at LIKE '%' AND category = 'MCO';
-
-/*没有勾选*/
-
-SELECT n.notice_id, n.category, n.edited_by, 
+/*MCO*/
+SELECT n.category, n.edited_by, 
 IFNULL(n.content, concat('Card Holder: ', m.cardholder, '\n', 
 'Card Number: ', m.card_number,  '\n',
 'EXP Date: ', m.exp_date, '\n', 
@@ -48,7 +23,30 @@ IFNULL(n.content, concat('Card Holder: ', m.cardholder, '\n',
 FROM NoticeBoard n 
 JOIN McoInfo m 
 ON n.notice_id = m.notice_id
-WHERE target_at LIKE '%' AND category = 'MCO';
+WHERE valid_until >= CURRENT_DATE
+AND target_at = 1 AND category = 'MCO' 
+ORDER BY n.notice_id DESC;
 
-/**/
+
+/*添加*/
+
+INSERT INTO NoticeBoard(
+    valid_until, 
+    edited_by, 
+    target_at,
+    content, 
+    gotop,
+    category
+)
+ VALUES (
+    '2018-12-12',
+    1, 
+    NULL, 
+    'dfsafasdfdsafsdafsadf',
+    'Y',
+    'notice'
+);
+
+
+
 /**/
