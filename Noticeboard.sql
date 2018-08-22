@@ -1,13 +1,10 @@
 /*表格显示*/
-
-
 --管理员登陆--
 /*只查看未过期+公告*/
 SELECT category, edited_by, content 
 FROM NoticeBoard 
 WHERE valid_until >= CURRENT_DATE
-AND target_at IS NULL
-ORDER BY notice_id DESC;
+ORDER BY no.tice_id DESC;
 
 /*MCO*/
 SELECT n.category, n.edited_by, 
@@ -24,7 +21,7 @@ FROM NoticeBoard n
 JOIN McoInfo m 
 ON n.notice_id = m.notice_id
 WHERE valid_until >= CURRENT_DATE
-AND target_at = 1 AND category = 'MCO' 
+AND category = 'MCO' 
 ORDER BY n.notice_id DESC;
 
 
