@@ -48,5 +48,6 @@ INSERT INTO NoticeBoard(
 
 /*index*/
 
+SELECT 
 
 

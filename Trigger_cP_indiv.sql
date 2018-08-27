@@ -2,13 +2,22 @@ CREATE TRIGGER cPAir BEFORE INSERT ON Transactions
 FOR EACH ROW
 BEGIN 
 IF NEW.type = 'individual' THEN
-    SELECT sale_price FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @sale_price;
-    SELECT base_price FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @base_price;
-    SELECT coupon FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @coupon;
-    SELECT sale_currency FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @sale_currency;
-    SELECT base_currency FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @base_currency;
-    SELECT coupon_currency FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @coupon_currency;
-    SELECT exchange_rate FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @exchange_rate_usd_rmb;
+    SELECT 
+        sale_price,
+        base_price,
+        coupon,
+        sale_currency,
+        base_currency,
+        coupon_currency,
+        exchange_rate
+    FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO 
+        @sale_price,
+        @base_price,
+        @coupon,
+        @sale_currency,
+        @base_currency,
+        @coupon_currency,
+        @exchange_rate_usd_rmb;
     IF @base_currency = @sale_currency AND @sale_currency = @coupon_currency THEN
         SET NEW.currency = @sale_currency;
         SET NEW.expense = IFNULL(@base_price, 0);
@@ -21,7 +30,8 @@ IF NEW.type = 'individual' THEN
             SET @base_currency = 'USD';
         END IF;
         IF @sale_currency = 'RMB' THEN 
-            SET @sale_price = @sale_price / @exchange_rate_usd_rmb;
+            SET 
+                @sale_price = @sale_price / @exchange_rate_usd_rmb;
             SET @sale_currency = 'USD';
         END IF;
         IF @coupon_currency = 'RMB' THEN

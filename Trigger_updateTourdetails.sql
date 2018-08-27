@@ -1,30 +1,45 @@
 CREATE TRIGGER updateTourDetails AFTER UPDATE ON TourDetails
 FOR EACH ROW 
 BEGIN
-SELECT sale_currency FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @sale_currency;
-SELECT exchange_rate FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @exchange_rate;
-SELECT sale_price FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @sale_price;
-SET @new_payment_amount = NEW.payment_amount;
-SET @old_payment_amount = OLD.payment_amount;
+SELECT 
+    sale_currency,
+    exchange_rate,
+    sale_price
+FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO 
+    @sale_currency,
+    @exchange_rate,
+    @sale_price;
+
+SET 
+    -- @new_payment_amount = NEW.payment_amount,
+    -- @old_payment_amount = OLD.payment_amount,
+    -- @new_commission_fee = NEW,commission_fee,
+    -- @old_commission_fee = OLD.commission_fee,
+    @new_received = NEW.received,
+    @old_received = OLD.received;
 
 IF @sale_currency = NEW.payment_amount_currency AND OLD.payment_amount_currency = @sale_currency THEN 
-    UPDATE IndividualTour SET sale_price = sale_price - OLD.payment_amount + NEW.payment_amount WHERE indiv_tour_id = NEW.indiv_tour_id;
+    UPDATE IndividualTour SET sale_price = sale_price - OLD.received + NEW.received WHERE indiv_tour_id = NEW.indiv_tour_id;
 ELSE 
     IF @sale_currency = 'RMB' THEN 
         SET @sale_price = @sale_price / @exchange_rate;
     END IF;
     IF NEW.payment_amount_currency = 'RMB' THEN 
-        SET @new_payment_amount = @new_payment_amount / @exchange_rate;
+        SET @new_received = @new_received / @exchange_rate;
     END IF;
     IF OLD.payment_amount_currency = 'RMB' THEN 
-        SET @old_payment_amount = @old_payment_amount / @exchange_rate;
+        SET @old_received = @old_received / @exchange_rate;
     END IF;
-    UPDATE IndividualTour SET sale_price = @sale_price - @old_payment_amount + @new_payment_amount, sale_currency = 'USD' WHERE indiv_tour_id = NEW.indiv_tour_id;
+    UPDATE IndividualTour SET sale_price = @sale_price - @old_received + @new_received, sale_currency = 'USD' WHERE indiv_tour_id = NEW.indiv_tour_id;
 END IF;
 
 
-SELECT coupon_currency FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @coupon_currency;
-SELECT coupon FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @coupon;
+SELECT 
+    coupon_currency,
+    coupon 
+FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO 
+    @coupon_currency,
+    @coupon;
 SET @new_coupon = NEW.coupon;
 SET @old_coupon = OLD.coupon;
 

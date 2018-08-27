@@ -1,19 +1,17 @@
 CREATE TRIGGER updateIndividualTour AFTER UPDATE ON IndividualTour 
 FOR EACH ROW
 BEGIN
-SET @indiv_tour_id = NEW.indiv_tour_id;
-SET @new_base_price = IFNULL(NEW.base_price, 0);
-SET @new_sale_price = IFNULL(NEW.sale_price, 0);
-SET @new_coupon = IFNULL(NEW.coupon, 0);
-
-SET @new_base_currency = IFNULL(NEW.base_currency, OLD.base_currency);
-SET @new_sale_currency = IFNULL(NEW.sale_currency, OLD.sale_currency);
-SET @new_coupon_currency = IFNULL(NEW.coupon_currency, OLD.coupon_currency);
+SET 
+    @indiv_tour_id = NEW.indiv_tour_id,
+    @new_base_price = IFNULL(NEW.base_price, 0),
+    @new_sale_price = IFNULL(NEW.sale_price, 0),
+    @new_coupon = IFNULL(NEW.coupon, 0),
+    @new_base_currency = IFNULL(NEW.base_currency, OLD.base_currency),
+    @new_sale_currency = IFNULL(NEW.sale_currency, OLD.sale_currency),
+    @new_coupon_currency = IFNULL(NEW.coupon_currency, OLD.coupon_currency);
 
 SELECT currency FROM Transactions WHERE indiv_tour_id = @indiv_tour_id INTO @t_currency;
 SET @t_currency = IFNULL(@t_currency, 'USD');
-
-
 IF 'USD' NOT IN (@new_base_currency, @new_coupon_currency, @new_sale_currency) THEN  
     UPDATE Transactions SET currency = 'RMB' WHERE indiv_tour_id = @indiv_tour_id;
 ELSE
