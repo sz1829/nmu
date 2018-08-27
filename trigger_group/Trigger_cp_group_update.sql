@@ -1,29 +1,26 @@
 CREATE TRIGGER updateGroupTour AFTER UPDATE ON GroupTour 
 FOR EACH ROW
 BEGIN
-SELECT received FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO @t_received;
-SELECT currency FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO @t_currency;
+SELECT received, currency, expense, coupon FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO @t_received, @t_currency, @expense, @t_coupon;
 SELECT exchange_rate_usd_rmb FROM GroupTour WHERE group_tour_id = NEW.group_tour_id INTO @exchange_rate;
-SELECT expense FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO @expense;
-SELECT coupon FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO @t_coupon;
-IF @t_received <> NEW.received THEN
+IF @t_received <> NEW.shin_received THEN
     IF @t_currency = NEW.received_currency THEN 
-        UPDATE Transactions SET received = NEW.received, total_profit = received - expense - coupon  WHERE group_tour_id = NEW.group_tour_id;
+        UPDATE Transactions SET received = NEW.shin_received, total_profit = received - expense - coupon  WHERE group_tour_id = NEW.group_tour_id;
     ELSE 
         IF @t_currency = 'RMB' THEN 
-            UPDATE Transactions SET currency = 'USD', received = NEW.received, expense = expense / @exchange_rate, coupon = coupon / @exchange_rate, total_profit = received - expense - coupon WHERE group_tour_id = NEW.group_tour_id;
+            UPDATE Transactions SET currency = 'USD', received = NEW.shin_received, expense = expense / @exchange_rate, coupon = coupon / @exchange_rate, total_profit = received - expense - coupon WHERE group_tour_id = NEW.group_tour_id;
         END IF;
         IF NEW.received_currency = 'RMB' THEN 
-            UPDATE Transactions SET received = NEW.received / @exchange_rate, total_profit = received - expense - coupon  WHERE group_tour_id = NEW.group_tour_id;
+            UPDATE Transactions SET received = NEW.shin_received / @exchange_rate, total_profit = received - expense - coupon  WHERE group_tour_id = NEW.group_tour_id;
         END IF;
     END IF;
 ELSE 
     IF @t_currency <> NEW.received_currency THEN 
         IF @t_currency = 'RMB' THEN 
-            UPDATE Transactions SET currency = 'USD', received = NEW.received, expense = expense / @exchange_rate, coupon = coupon / @exchange_rate, total_profit = received - expense - coupon WHERE group_tour_id = NEW.group_tour_id;
+            UPDATE Transactions SET currency = 'USD', received = NEW.shin_received, expense = expense / @exchange_rate, coupon = coupon / @exchange_rate, total_profit = received - expense - coupon WHERE group_tour_id = NEW.group_tour_id;
         END IF;
         IF NEW.received_currency = 'RMB' THEN 
-            UPDATE Transactions SET received = NEW.received / @exchange_rate, total_profit = received - expense - coupon  WHERE group_tour_id = NEW.group_tour_id;
+            UPDATE Transactions SET received = NEW.shin_received / @exchange_rate, total_profit = received - expense - coupon  WHERE group_tour_id = NEW.group_tour_id;
         END IF;
     END IF;
 END IF;
