@@ -174,6 +174,31 @@ ORDER BY sum_usd_profit DESC LIMIT 1;
 
 
 
+SELECT  
+    IFNULL(
+        n.content, 
+        concat(
+            REPLACE(
+                REPLACE(
+                    REPLACE(t.type, 'airticket', '机票'), 
+                'individual', '散拼团'), 
+            'group', '独立团'), 
+        '订单号：', m.transaction_id)) AS content,
+    n.category,
+    n.gotop
+FROM NoticeBoard n 
+LEFT JOIN McoInfo m 
+ON n.notice_id = m.notice_id
+LEFT JOIN Transactions t 
+ON m.transaction_id = t.transaction_id 
+JOIN NoticeTarget nt 
+ON n.notice_id = nt.notice_id
+WHERE n.valid_until >= CURRENT_DATE 
+AND nt.target_id = (SELECT user_id FROM UserAccount WHERE account_id = 'xi')
+AND gotop = 'Y'
+ORDER BY n.notice_id DESC
+
+
 
 SELECT  
     IFNULL(
@@ -195,4 +220,6 @@ ON m.transaction_id = t.transaction_id
 JOIN NoticeTarget nt 
 ON n.notice_id = nt.notice_id
 WHERE n.valid_until >= CURRENT_DATE 
-AND nt.target_id = (SELECT user_id FROM UserAccount WHERE account_id = 'xi');
+AND nt.target_id = (SELECT user_id FROM UserAccount WHERE account_id = 'xi')
+AND gotop = 'N'
+ORDER BY n.notice_id DESC ;
