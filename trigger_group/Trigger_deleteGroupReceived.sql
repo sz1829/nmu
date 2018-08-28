@@ -16,4 +16,3 @@ ELSE
     END IF;
     UPDATE GroupTour SET received = @received - @old_received, received_currency = 'USD' WHERE group_tour_id = OLD.group_tour_id;
 END IF;
-END

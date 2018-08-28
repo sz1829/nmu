@@ -11,10 +11,6 @@ FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO
     @sale_price;
 
 SET 
-    -- @new_payment_amount = NEW.payment_amount,
-    -- @old_payment_amount = OLD.payment_amount,
-    -- @new_commission_fee = NEW,commission_fee,
-    -- @old_commission_fee = OLD.commission_fee,
     @new_received = NEW.received,
     @old_received = OLD.received;
 
