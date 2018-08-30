@@ -22,7 +22,6 @@ IF NEW.type = 'group' THEN
         @exchange_rate_usd_rmb,
         @commission_fee,
         @shin_received;
-
     IF 'USD' IN (@received_currency, @total_cost_currency, @coupon_currency) AND 'RMB' IN (@received_currency, @total_cost_currency, @coupon_currency) THEN
         IF @received_currency = 'RMB' THEN 
             SET 

@@ -13,13 +13,11 @@ FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO
     @exchange_rate, 
     @it_coupon, 
     @it_coupon_currency;
-
 SET 
     @td_coupon = NEW.coupon, 
     @sale_price = IFNULL(@sale_price, 0),
     @it_coupon = IFNULL(@it_coupon, 0),
     @received = NEW.received;
-
 IF @sale_price = 0 THEN 
     UPDATE IndividualTour SET sale_currency = NEW.payment_amount_currency, sale_price = NEW.received WHERE indiv_tour_id = NEW.indiv_tour_id;
 ELSE 
@@ -35,7 +33,6 @@ ELSE
         UPDATE IndividualTour SET sale_price = @sale_price + @received, sale_currency = 'USD' WHERE indiv_tour_id = NEW.indiv_tour_id;
     END IF;
 END IF;
-
 IF @it_coupon = 0 THEN 
     IF NEW.coupon <> 0 THEN 
         UPDATE IndividualTour SET coupon_currency = NEW.coupon_currency, coupon = NEW.coupon WHERE indiv_tour_id = NEW.indiv_tour_id;

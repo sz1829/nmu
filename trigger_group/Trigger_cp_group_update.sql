@@ -1,8 +1,17 @@
-CREATE TRIGGER updateGroupTour AFTER UPDATE ON GroupTour 
+CREATE TRIGGER updateGroupTour BEFORE UPDATE ON GroupTour 
 FOR EACH ROW
 BEGIN
-SELECT received, currency, expense, coupon FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO @t_received, @t_currency, @expense, @t_coupon;
-SELECT exchange_rate_usd_rmb FROM GroupTour WHERE group_tour_id = NEW.group_tour_id INTO @exchange_rate;
+SELECT 
+    received, 
+    currency, 
+    expense, 
+    coupon 
+FROM Transactions WHERE group_tour_id = NEW.group_tour_id INTO 
+    @t_received, 
+    @t_currency, 
+    @expense, 
+    @t_coupon;
+SET @exchange_rate = OLD.exchange_rate_usd_rmb;
 IF @t_received <> NEW.shin_received THEN
     IF @t_currency = NEW.received_currency THEN 
         UPDATE Transactions SET received = NEW.shin_received, total_profit = received - expense - coupon  WHERE group_tour_id = NEW.group_tour_id;
