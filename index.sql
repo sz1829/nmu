@@ -247,7 +247,7 @@ ORDER BY n.notice_id DESC ;
 
 SELECT 
     IFNULL(
-        n.content, concat('MCO ID: ', m.mco_id, ' ', REPLACE(REPLACE(m.used, 'Y', '已完成'), 'N', '未完成'))
+        n.content, concat('MCO ID: ', n.notice_id, ' ', REPLACE(REPLACE(m.used, 'Y', '已完成'), 'N', '未完成'))
     ) as content,
     n.category, 
     n.gotop
