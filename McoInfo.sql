@@ -26,7 +26,9 @@ INSERT INTO McoInfo (
     phone_issuing_bank, 
     charging_amount_currency, 
     charging_amount, 
-    notice_id
+    notice_id, 
+    create_time,
+    note
 ) VALUES (
     'test',
     'test',
@@ -36,6 +38,8 @@ INSERT INTO McoInfo (
     'test',
     'USD',
     123,
-    6
+    6, 
+    current_timestamp,
+    NULL
 );
 
