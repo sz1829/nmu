@@ -242,9 +242,12 @@ ORDER BY n.notice_id DESC ;
 -- AND gotop = 'N'
 -- ORDER BY n.notice_id DESC ;
 
+
+
+
 SELECT 
     IFNULL(
-        n.content, concat('接收人', ua.account_id, REPLACE(REPLACE(m.used, 'Y', ''), 'N', ''))
+        n.content, concat('MCO ID: ', m.mco_id, ' ', REPLACE(REPLACE(m.used, 'Y', '已完成'), 'N', '未完成'))
     ) as content,
     n.category, 
     n.gotop
@@ -254,6 +257,6 @@ ON n.notice_id = m.notice_id
 JOIN NoticeTarget nt 
 ON n.notice_id = nt.notice_id
 WHERE n.valid_until >= CURRENT_DATE 
-AND nt.target_id = (SELECT user_id FROM UserAccount WHERE account_id = 'xi')
+AND nt.target_id = (SELECT user_id FROM UserAccount WHERE account_id = 'sj')
 AND gotop = 'N'
-ORDER BY n.notice_id DESC ;
+ORDER BY n.notice_id DESC;
