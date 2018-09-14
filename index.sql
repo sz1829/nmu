@@ -260,3 +260,4 @@ WHERE n.valid_until >= CURRENT_DATE
 AND nt.target_id = (SELECT user_id FROM UserAccount WHERE account_id = 'sj')
 AND gotop = 'N'
 ORDER BY n.notice_id DESC;
+
