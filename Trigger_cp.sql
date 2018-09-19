@@ -140,6 +140,13 @@ IF NEW.type = 'group' THEN
     SET NEW.coupon = IFNULL(@coupon, 0);
     SET NEW.total_profit = NEW.received - NEW.expense - NEW.coupon;
     SET NEW.currency = @received_currency;
+    SELECT count(DISTINCT payment_type) FROM GroupTourReceived WHERE group_tour_id = NEW.group_tour_id INTO @payment_type_number;
+    IF @payment_type_number = 1 THEN
+        SELECT DISTINCT payment_type FROM GroupTourReceived WHERE group_tour_id = NEW.group_tour_id INTO @payment_type_one;
+        SET NEW.payment_type = @payment_type_one;
+    ELSE
+        SET NEW.payment_type = 'multiple';
+    END IF;
 END IF;
 IF NEW.type = 'group' THEN SELECT exchange_rate_usd_rmb FROM GroupTour WHERE group_tour_id = NEW.group_tour_id INTO @lastest_exrate; END IF;
 IF NEW.type = 'individual' THEN SELECT exchange_rate FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO @lastest_exrate; END IF;
