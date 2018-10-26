@@ -1,17 +1,17 @@
-CREATE TRIGGER cPAir BEFORE INSERT ON Transactions 
+CREATE TRIGGER cp_indiv BEFORE INSERT ON Transactions
 FOR EACH ROW
-BEGIN 
+BEGIN
 IF NEW.type = 'individual' THEN
-    SELECT 
-        sale_price,
+    SELECT
+        received,
         base_price,
         coupon,
         sale_currency,
         base_currency,
         coupon_currency,
         exchange_rate
-    FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO 
-        @sale_price,
+    FROM IndividualTour WHERE indiv_tour_id = NEW.indiv_tour_id INTO
+        @received,
         @base_price,
         @coupon,
         @sale_currency,
@@ -21,30 +21,26 @@ IF NEW.type = 'individual' THEN
     IF @base_currency = @sale_currency AND @sale_currency = @coupon_currency THEN
         SET NEW.currency = @sale_currency;
         SET NEW.expense = IFNULL(@base_price, 0);
-        SET NEW.received = IFNULL(@sale_price, 0);
+        SET NEW.received = IFNULL(@received, 0);
         SET NEW.coupon = IFNULL(@coupon, 0);
         SET NEW.total_profit = NEW.received - NEW.expense - NEW.coupon;
-    ELSE 
-        IF @base_currency = 'RMB' THEN 
+    ELSE
+        IF @base_currency = 'RMB' THEN
             SET @base_price = @base_price / @exchange_rate_usd_rmb;
-            SET @base_currency = 'USD';
         END IF;
-        IF @sale_currency = 'RMB' THEN 
-            SET 
-                @sale_price = @sale_price / @exchange_rate_usd_rmb;
-            SET @sale_currency = 'USD';
+        IF @sale_currency = 'RMB' THEN
+            SET
+                @received = @received / @exchange_rate_usd_rmb;
         END IF;
         IF @coupon_currency = 'RMB' THEN
             SET @coupon = @coupon / @exchange_rate_usd_rmb;
-            SET @coupon_currency = 'USD';
         END IF;
         SET
-            NEW.expense = IFNULL(@base_price, 0), 
-            NEW.received = IFNULL(@sale_price, 0),
-            NEW.currency = @base_currency, 
+            NEW.expense = IFNULL(@base_price, 0),
+            NEW.received = IFNULL(@received, 0),
+            NEW.currency = @base_currency,
             NEW.coupon = IFNULL(@coupon, 0),
             NEW.total_profit = NEW.received - NEW.expense - NEW.coupon;
     END IF;
 END IF;
 END
-
