@@ -11,14 +11,12 @@ SELECT
     a.payment_type, 
     t.total_profit
 FROM Transactions t 
-JOIN AirticketTour a 
+INNER JOIN AirticketTour a 
 ON t.airticket_tour_id = a.airticket_tour_id
-JOIN Customer c 
-ON a.customer_id = c.customer_id 
 LEFT JOIN Wholesaler w 
 ON a.wholesaler_id = w.wholesaler_id 
-JOIN FinanceStatus fs 
-ON fs.airticket_tour_id = a.airticket_tour_id
+JOIN Customer c 
+ON a.customer_id = c.customer_id 
 WHERE t.transaction_id LIKE '%'
 AND a.locators LIKE '%' 
 AND t.settle_time > 0 
@@ -28,7 +26,10 @@ AND c.lname LIKE concat('%', '%', '%')
 AND a.invoice >= 0
 AND a.invoice <= 999999999
 AND IFNULL(w.wholesaler_code, '') LIKE '%'
-AND IFNULL(fs.lock_status, '') LIKE '%'
-AND IFNULL(fs.clear_status, '') LIKE '%'
-AND IFNULL(fs.paid_status, '') LIKE '%'
-AND IFNULL(fs.finish_status, '') LIKE '%'
+AND t.transaction_id IN (
+SELECT transaction_id FROM FinanceStatus WHERE
+IFNULL(lock_status, '') LIKE '%'
+AND IFNULL(clear_status, '') LIKE '%'
+AND IFNULL(paid_status, '') LIKE '%'
+AND IFNULL(finish_status, '') LIKE '%'
+)
