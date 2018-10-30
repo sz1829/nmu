@@ -44,7 +44,7 @@ SELECT
     a.flight_code, 
     a.ticket_type, 
     a.round_trip,
-    a.adult_number+a.youth_number+child_number+infant_numebr AS total_number,
+    a.adult_number+a.youth_number+a.child_number+a.infant_number AS total_number,
     w.wholesaler_code,
     a.invoice,
     cs.source_name, 
@@ -93,5 +93,18 @@ FROM
     ON s.salesperson_id = t.salesperson_id
 WHERE tc.starter_id = 1;
 
-     
-    
+SELECT 
+    mco_party,
+    face_value, 
+    face_currency,
+    mco_value, 
+    mco_currency, 
+    mco_credit, 
+    mco_credit_currency
+FROM 
+    McoPayment mp 
+    JOIN AirticketTour a 
+    ON a.mp_id = mp.mp_id 
+    JOIN Transactions t 
+    ON a.airticket_tour_id = t.airticket_tour_id 
+WHERE t.transaction_id = 1;
