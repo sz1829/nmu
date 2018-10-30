@@ -79,3 +79,37 @@ ORDER BY invoice ASC, transaction_id DESC
 -- (2,2), 
 -- (3,3), 
 -- (4, 4)
+
+
+
+
+SELECT 
+    t.transaction_id, 
+    s.salesperson_code, 
+    t.type, 
+    t.settle_time, 
+    concat(UPPER(c.fname), '/', c.lname) AS customer_name, 
+    a.invoice, 
+    w.wholesaler_code, 
+    a.payment_type, 
+    concat(REPLACE(REPLACE(a.selling_currency, 'USD', '$'), 'RMB', '￥'), a.selling_price) AS payment_amount,
+    fs.lock_status, 
+    fs.clear_status, 
+    a.locators, 
+    a.flight_code,
+    tca.following_id
+FROM Transactions t 
+JOIN AirticketTour a 
+ON t.airticket_tour_id = a.airticket_tour_id 
+JOIN Salesperson s 
+ON s.salesperson_id = a.salesperson_id
+JOIN FinanceStatus fs 
+ON a.airticket_tour_id = fs.airticket_tour_id
+JOIN Wholesaler w 
+ON a.wholesaler_id = w.wholesaler_id
+JOIN Customer c 
+ON a.customer_id = c.customer_id
+JOIN (SELECT starter_id, group_concat(following_id SEPARATOR ',') FROM TransactionCollections GROUP BY starter_id) tca 
+ON tca.starter_id = t.transaction_id
+
+
