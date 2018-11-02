@@ -108,3 +108,27 @@ FROM
     JOIN Transactions t 
     ON a.airticket_tour_id = t.airticket_tour_id 
 WHERE t.transaction_id = 1;
+
+INSERT INTO FinanceStatus(transaction_id,
+              invoice,
+              lock_status,clear_status,paid_status,finish_status,
+              debt, received, selling_price, create_time,
+              depart_date, arrival_date, following_id_collection,
+              total_profit)
+SELECT
+            $transaction_id,
+            $invoice, 'N', 'N', 'N', 'N', $base_price + $mco_value - $mco_credit,
+            'CC',
+            $sell_price,
+            t.create_time,
+            $depart_date_s,
+            $depart_date_e,
+            group_concat(tc.following_id SEPARATOR ','),
+            $profit_trans
+          FROM Transactions t
+          JOIN TransactionCollections tc
+          ON tc.starter_id = t.transaction_id
+        WHERE t.transaction_id = $transaction_id
+          GROUP BY tc.starter_id
+
+          
