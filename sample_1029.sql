@@ -131,4 +131,31 @@ SELECT
         WHERE t.transaction_id = $transaction_id
           GROUP BY tc.starter_id
 
-          
+
+
+SELECT fs.transaction_id, fs.invoice, fs.total_profit, concat(fs.clear_status, '|', debt) AS debt, 
+concat(fs.paid_status, '|', fs.received) AS received, fs.selling_price, fs.create_time, fs.depart_date, 
+fs.arrival_date, fs.lock_status, fs.finish_status, fs.following_id_collection, t.type, a.payment_type
+FROM FinanceStatus fs 
+JOIN Transactions t ON fs.transaction_id = t.transaction_id 
+JOIN AirticketTour a ON a.airticket_tour_id = t.airticket_tour_id 
+JOIN Salesperson s ON a.salesperson_id = s.salesperson_id
+JOIN Customer c ON a.customer_id = c.customer_id
+JOIN Wholesaler w ON a.wholesaler_id = w.wholesaler_id
+JOIN AirSchedule asl ON a.airticket_tour_id = asl.airticket_tour_id
+WHERE fs.transaction_id LIKE '%'
+AND s.salesperson_code LIKE '%'
+AND t.settle_time >= 0 
+AND t.settle_time <= CURRENT_DATE
+AND c.lname LIKE concat('%', 'hhh', '%')
+AND c.fname LIKE concat('%', 'hhh', '%')
+AND w.wholesaler_code LIKE '%'
+AND fs.invoice LIKE '%' 
+OR (fs.invoice >= 0
+AND fs.invoice <= 999999999999999999)
+AND a.locators LIKE '%'
+AND asl.airline LIKE '%'
+AND fs.lock_status LIKE '%'
+AND fs.clear_status LIKE '%'
+AND fs.paid_status LIKE '%'
+AND fs.finish_status LIKE '%'
