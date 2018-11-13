@@ -171,6 +171,8 @@ AND fs.finish_status LIKE '%'
 --     DATE_FORMAT(t.create_time, '%Y-%m-%d') AS create_time, 
 --     CONCAT(UPPER(c.fname), '/', c.lname) AS customer_name, 
 
+/*散拼团更新页面悬浮窗口*/
+
 
 SELECT 
     i.product_code,
@@ -216,7 +218,25 @@ ON i.customer_id = c.customer_id
 JOIN Wholesaler w 
 ON w.wholesaler_id = i.wholesaler_id
 JOIN CustomerSource cs 
-ON cs.source_id = t.source_id;
+ON cs.source_id = t.source_id
+JOIN FinanceStatus fs 
+ON fs.transaction_id = t.transaction_id
+WHERE t.transaction_id LIKE '%'
+AND i.product_code LIKE '%'
+AND t.settle_time <= CURRENT_DATE 
+AND t.settle_time > 0
+AND c.lname LIKE concat('%', '%', '%')
+AND c.fname LIKE concat('%', '%', '%')
+AND i.indiv_tour_invoice LIKE '%'
+-- AND i.indiv_tour_invoice > 0
+-- AND i.indiv_tour_invoice < 123
+AND w.wholesaler_code LIKE '%'
+AND i.payment_type LIKE '%'
+AND fs.lock_status LIKE '%'
+AND fs.clear_status LIKE '%'
+AND fs.paid_status LIKE '%'
+AND fs.finish_status LIKE '%'
+ORDER BY t.transaction_id DESC;
 
 SELECT 
     mco_party,
@@ -233,3 +253,8 @@ FROM
     JOIN Transactions t 
     ON a.airticket_tour_id = t.airticket_tour_id 
 WHERE t.transaction_id = 1;
+
+
+/*数据导出*/
+
+
