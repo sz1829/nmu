@@ -67,7 +67,8 @@ SELECT
     c.gender, 
     c.other_contact_type, 
     c.other_contact_number, 
-    c.zipcode
+    c.zipcode 
+    -- (SELECT group_concat(following_id SEPARATOR ',') FROM TransactionCollections WHERE starter_id = 3 GROUP BY starter_id) AS following_id_collection
 FROM 
     AirticketTour a 
     JOIN Transactions t 
@@ -91,7 +92,7 @@ FROM
     ON t.transaction_id = tc.starter_id
     JOIN Salesperson s 
     ON s.salesperson_id = t.salesperson_id
-WHERE tc.starter_id = 1;
+WHERE tc.starter_id = 3;
 
 SELECT 
     mco_party,
@@ -134,7 +135,7 @@ SELECT
 
 
 SELECT fs.transaction_id, fs.invoice, fs.total_profit, concat(fs.clear_status, '|', debt) AS debt, 
-concat(fs.paid_status, '|', fs.received) AS received, fs.selling_price, fs.create_time, fs.depart_date, 
+REPLACE(REPLACE(concat(fs.paid_status, '|', fs.received), 'N|CC', 'CC'), 'Y|CC', 'CC') AS received, fs.selling_price, fs.create_time, fs.depart_date, 
 fs.arrival_date, fs.lock_status, fs.finish_status, fs.following_id_collection, t.type, a.payment_type
 FROM FinanceStatus fs 
 JOIN Transactions t ON fs.transaction_id = t.transaction_id 
@@ -142,20 +143,93 @@ JOIN AirticketTour a ON a.airticket_tour_id = t.airticket_tour_id
 JOIN Salesperson s ON a.salesperson_id = s.salesperson_id
 JOIN Customer c ON a.customer_id = c.customer_id
 JOIN Wholesaler w ON a.wholesaler_id = w.wholesaler_id
-JOIN AirSchedule asl ON a.airticket_tour_id = asl.airticket_tour_id
+-- JOIN AirSchedule asl ON a.airticket_tour_id = asl.airticket_tour_id
 WHERE fs.transaction_id LIKE '%'
 AND s.salesperson_code LIKE '%'
-AND t.settle_time >= 0 
+AND t.settle_time >= 0  
 AND t.settle_time <= CURRENT_DATE
-AND c.lname LIKE concat('%', 'hhh', '%')
-AND c.fname LIKE concat('%', 'hhh', '%')
+AND c.lname LIKE concat('%', '%', '%')
+AND c.fname LIKE concat('%', '%', '%')
 AND w.wholesaler_code LIKE '%'
-AND fs.invoice LIKE '%' 
-OR (fs.invoice >= 0
-AND fs.invoice <= 999999999999999999)
+AND (fs.invoice LIKE '%' OR (fs.invoice >= 0 AND fs.invoice <= 999999999999999999))
 AND a.locators LIKE '%'
-AND asl.airline LIKE '%'
+-- AND asl.airline LIKE '%'
 AND fs.lock_status LIKE '%'
 AND fs.clear_status LIKE '%'
 AND fs.paid_status LIKE '%'
 AND fs.finish_status LIKE '%'
+
+
+
+-- SELECT 
+--     t.transaction_id, 
+--     i.indiv_tour_invoice, 
+--     fs.total_profit,
+--     fs.debt,
+--     fs.received,
+--     fs.selling_price,
+--     DATE_FORMAT(t.create_time, '%Y-%m-%d') AS create_time, 
+--     CONCAT(UPPER(c.fname), '/', c.lname) AS customer_name, 
+
+
+SELECT 
+    i.product_code,
+    s.salesperson_code,
+    i.tour_name, 
+    w.wholesaler_code,
+    i.indiv_tour_invoice,
+    cs.source_name,
+    t.note, 
+    dl.us_layer,
+    dl.first_layer,
+    dl.second_layer,
+    dl.third_layer,
+    DATE_FORMAT(t.depart_date, '%Y-%m-%d') AS depart_date, 
+    DATE_FORMAT(t.arrival_date, '%Y-%m-%d') AS arrival_date, 
+    DATEDIFF(i.arrival_date, i.depart_date) + 1 AS duration,
+    i.exchange_rate,
+    i.deal_location,
+    i.selling_price,
+    i.selling_currency,
+    i.base_price,
+    i.base_currency,
+    i.payment_type,
+    t.total_profit,
+    c.lname, 
+    c.fname, 
+    c.phone, 
+    c.other_contact_type,
+    c.other_contact_number,
+    c.birth_date,
+    c.gender, 
+    c.email, 
+    c.zipcode
+FROM Transactions t 
+JOIN IndividualTour i 
+ON t.indiv_tour_id = i.indiv_tour_id
+LEFT JOIN DestinationList dl 
+ON dl.dl_id = i.dl_id
+JOIN Salesperson s 
+ON i.salesperson_id = s.salesperson_id
+JOIN Customer c 
+ON i.customer_id = c.customer_id
+JOIN Wholesaler w 
+ON w.wholesaler_id = i.wholesaler_id
+JOIN CustomerSource cs 
+ON cs.source_id = t.source_id;
+
+SELECT 
+    mco_party,
+    face_value, 
+    face_currency,
+    mco_value, 
+    mco_currency, 
+    mco_credit, 
+    mco_credit_currency
+FROM 
+    McoPayment mp 
+    JOIN AirticketTour a 
+    ON a.mp_id = mp.mp_id 
+    JOIN Transactions t 
+    ON a.airticket_tour_id = t.airticket_tour_id 
+WHERE t.transaction_id = 1;
